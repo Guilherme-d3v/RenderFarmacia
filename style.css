@@ -95,6 +95,7 @@ body {
     color: white;
     cursor: pointer;
 }
+
 /* Estilo da Área de Login e Carrinho */
 .user-actions {
     display: flex;
@@ -121,6 +122,13 @@ body {
 
 .login-container:hover, .cart-container:hover {
     opacity: 0.8;
+}
+
+/* Responsividade: Esconde os textos de login e carrinho em telas pequenas */
+@media (max-width: 600px) {
+    .login-text, .cart-text {
+        display: none;
+    }
 }
 
 /* Estilo do Carrossel */
