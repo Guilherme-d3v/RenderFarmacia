@@ -102,6 +102,9 @@ body {
     align-items: center;
     gap: 20px;
 }
+.user-actions a {
+    text-decoration: none !important;
+}
 
 .login-container, .cart-container {
     display: flex;
