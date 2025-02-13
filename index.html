@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botica Suplementos</title>
+    <link rel="stylesheet" href="/style.css"> <!-- Link para o CSS externo -->
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="/assets/logo3.png" alt="Logo da Loja">
+            <h1>Botica Suplementos</h1>
+        </div>
+        <nav class="navbar">
+            <div class="menu-icon" onclick="toggleNav()">&#9776;</div>
+            <ul class="nav-links">
+                <li><a href="#">Escolha por sintomas</a></li>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="#">Linhas completas</a></li>
+                <li><a href="#">Área do Cliente</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="#" class="login-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+                <span class="login-text">Login</span>
+            </a>
+            <a href="#" class="cart-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart">
+                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                </svg>
+                <span class="cart-text">Carrinho</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item"><img src="/assets/cr1.webp" alt="Imagem 1"></div>
+                <div class="carousel-item"><img src="assets/cr2.webp" alt="Imagem 2"></div>
+                <div class="carousel-item"><img src="assets/cr3.jpg" alt="Imagem 3"></div>
+                <div class="carousel-item"><img src="assets/cr4.webp" alt="Imagem 4"></div>
+            </div>
+            <button class="carousel-button prev">&#10094;</button>
+            <button class="carousel-button next">&#10095;</button>
+            <div class="carousel-indicators">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </main>
+
+    <script src="/script.js"></script> <!-- Importando o JavaScript -->
+</body>
+</html>

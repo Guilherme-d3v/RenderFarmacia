@@ -1,0 +1,196 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo do corpo da página */
+body {
+    padding-top: 9%; /* Altura do header */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('assets/fundo.png'); /* Caminho da imagem */
+    background-size: cover; /* Cobrir toda a área */
+    background-position: center; /* Centralizar a imagem */
+    background-repeat: no-repeat; /* Evitar repetição */
+    background-attachment: fixed; /* Fixar a imagem ao rolar */
+}
+
+/* Estilo do Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #9370DB; /* Roxo claro */
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Estilo da Logo e Nome da Loja */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    color: white;
+    font-size: 24px;
+}
+
+/* Estilo do Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    position: relative; /* Adicionado para posicionar o menu corretamente */
+}
+
+.nav-links {
+    list-style: none;
+    display: none; /* Esconde os links por padrão */
+    flex-direction: column;
+    position: absolute;
+    top: 50px; /* Posiciona o menu abaixo do ícone do hambúrguer */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta o posicionamento central */
+    background-color: #dcd7e4;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Garante que o menu fique acima de outros elementos */
+    min-width: 250px; /* Define a largura mínima do menu */
+    width: auto; /* Permite que o menu se ajuste ao conteúdo */
+    min-height: 100px; /* Define a altura mínima do menu */
+    height: auto; /* Permite que o menu se ajuste ao conteúdo */
+    gap: 15px; /* Espaçamento entre os links */
+}
+
+.nav-links.active {
+    display: flex; /* Mostra os links quando a navbar está ativa */
+}
+
+.nav-links li a {
+    color: rgb(212, 116, 25);
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center; /* Centraliza o texto dos links */
+    padding: 15px 25px; /* Adiciona espaçamento interno */
+}
+
+.nav-links li a:hover {
+    text-decoration: underline;
+}
+
+.menu-icon {
+    display: block; /* Ícone do menu sempre visível */
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+/* Estilo da Área de Login e Carrinho */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-container, .cart-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.login-container svg, .cart-container svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+.login-text, .cart-text {
+    font-size: 16px;
+    color: white;
+}
+
+.login-container:hover, .cart-container:hover {
+    opacity: 0.8;
+}
+
+/* Estilo do Carrossel */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.carousel-item img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 24px;
+    z-index: 1001;
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1001;
+}
+
+.carousel-indicators span {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-indicators span.active {
+    background-color: white;
+}
