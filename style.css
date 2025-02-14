@@ -205,3 +205,32 @@ body {
 .carousel-indicators span.active {
     background-color: white;
 }
+/* Estilo da Seção de Informações sobre os Produtos */
+.product-info {
+    padding: 40px 20px;
+    text-align: center;
+    
+}
+
+/* Estilo das Barras */
+.section-bar {
+    height: 4px;
+    background-color: #333;
+    margin: 20px auto;
+    width: 80%;
+}
+
+/* Estilo do Conteúdo de Texto com Transparência */
+.info-content h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.7); /* Texto preto com 70% de opacidade */
+}
+
+.info-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.7); /* Texto preto com 70% de opacidade */
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
