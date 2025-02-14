@@ -168,9 +168,9 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 1px;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 5px%;
     font-size: 24px;
     z-index: 1001;
 }
