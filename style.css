@@ -170,7 +170,7 @@ body {
     border: none;
     padding: 1px;
     cursor: pointer;
-    border-radius: 5px%;
+    border-radius: 5px;
     font-size: 24px;
     z-index: 1001;
 }
