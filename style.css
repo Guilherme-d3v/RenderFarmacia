@@ -218,8 +218,17 @@ body {
     background-color: #333;
     margin: 20px auto;
     width: 80%;
+    
 }
-
+/* Estilo da Barra Superior */
+.top-bar {
+    height: 4px; /* Altura maior */
+    background-color: #333; /* Cor diferente (vermelho alaranjado) */
+    width: 20%; /* Largura maior */
+    border-radius: 10px; /* Bordas arredondadas */
+    margin-top: 10px; /* Espaçamento superior personalizado */
+    margin-bottom: 30px; /* Espaçamento inferior personalizado */
+}
 /* Estilo do Conteúdo de Texto com Transparência */
 .info-content h2 {
     font-size: 2rem;
