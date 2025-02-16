@@ -355,7 +355,38 @@ body {
 .card-body a:hover {
     text-decoration: underline;
 }
+/* Estilo dos Botões */
+.card-button {
+    display: inline-block;
+    padding: 10px 20px; /* Espaçamento interno */
+    margin: 5px; /* Espaçamento entre os botões */
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #9370DB; /* Cor roxa */
+    border: none;
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Efeito de transição suave */
+}
 
+/* Estilo do Botão "Adicionar ao Carrinho" */
+.card-button.add-to-cart {
+    background-color: #d4b77f; /* Verde */
+}
+
+.card-button.add-to-cart:hover {
+    background-color: #b47b07; /* Verde mais escuro ao passar o mouse */
+}
+
+/* Estilo do Botão "Ver Especificações" */
+.card-button.view-details {
+    background-color: #d4b77f; /* Azul */
+}
+
+.card-button.view-details:hover {
+    background-color: #b47b07; /* Azul mais escuro ao passar o mouse */
+}
 /* Responsividade */
 @media (max-width: 1200px) {
     .card {
