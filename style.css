@@ -7,7 +7,7 @@
 
 /* Estilo do corpo da página */
 body {
-    padding-top: 9%; /* Altura do header */
+    padding-top: 80px; /* Altura do header */
     margin: 0;
     font-family: Arial, sans-serif;
     background-image: url('assets/fundo.png'); /* Caminho da imagem */
@@ -19,6 +19,7 @@ body {
 
 /* Estilo do Header */
 .header {
+    height: 80px; /* Altura fixa do cabeçalho */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -145,7 +146,8 @@ body {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 80px; /* Altura do cabeçalho */
+    margin-top: auto; /* Altura do cabeçalho */
+    min-height: 200px; /* Altura mínima do carrossel */
 }
 
 .carousel-inner {
@@ -160,8 +162,11 @@ body {
 
 .carousel-item img {
     width: 100%;
+    height: auto; /* Ajusta a altura automaticamente */
+    max-height: 400px; /* Define uma altura máxima para evitar que a imagem fique muito grande */
     display: block;
     border-radius: 10px;
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
 }
 
 .carousel-button {
@@ -173,7 +178,7 @@ body {
     border: none;
     padding: 10px;
     cursor: pointer;
-    border-radius: 5%;
+    border-radius: 50%;
     font-size: 24px;
     z-index: 1001;
 }
@@ -209,18 +214,24 @@ body {
     background-color: white;
 }
 
-/* Ajustes para telas menores */
 @media (max-width: 768px) {
+    .carousel-item img {
+        max-height: 300px; /* Reduz a altura máxima das imagens em telas menores */
+    }
+
     .carousel {
-        margin-top: 60px; /* Reduz o margin-top em telas menores */
+        min-height: 150px; /* Reduz a altura mínima do carrossel em telas menores */
     }
 }
 
 @media (max-width: 576px) {
-    .carousel {
-        margin-top: 50px; /* Reduz ainda mais o margin-top em telas muito pequenas */
+    .carousel-item img {
+        max-height: 200px; /* Reduz ainda mais a altura máxima das imagens em telas muito pequenas */
     }
 
+    .carousel {
+        min-height: 100px; /* Reduz ainda mais a altura mínima do carrossel em telas muito pequenas */
+    }
 }
 /* Estilo da Seção de Informações sobre os Produtos */
 .product-info {
