@@ -94,6 +94,8 @@ body {
     font-size: 24px;
     color: white;
     cursor: pointer;
+    margin-right:20px; /* Empurra o ícone para a direita */
+    margin-left: 20px;
 }
 
 /* Estilo da Área de Login e Carrinho */
