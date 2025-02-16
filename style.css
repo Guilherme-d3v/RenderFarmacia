@@ -214,7 +214,22 @@ body {
 .carousel-indicators span.active {
     background-color: white;
 }
+@media (min-width: 1200px) {
+    .carousel-item img {
+        height: 500px; /* Altura maior para telas grandes */
+    }
+}
+@media (max-width: 1200px) {
+    .carousel-item img {
+        height: 350px; /* Reduz a altura para telas menores */
+    }
+}
 
+@media (max-width: 992px) {
+    .carousel-item img {
+        height: 300px; /* Reduz ainda mais a altura para tablets */
+    }
+}
 @media (max-width: 768px) {
     .carousel-item img {
         max-height: 300px; /* Reduz a altura máxima das imagens em telas menores */
