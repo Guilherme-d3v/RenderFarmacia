@@ -231,7 +231,7 @@ body {
 }
 /* Estilo do Conteúdo de Texto com Transparência */
 .info-content h2 {
-    font-size: 2rem;
+    font-size: 1.3rem;
     margin-bottom: 20px;
     color: rgba(0, 0, 0, 0.7); /* Texto preto com 70% de opacidade */
 }
