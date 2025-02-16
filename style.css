@@ -139,9 +139,10 @@ body {
 
 /* Estilo do Carrossel */
 .carousel {
+    
     position: relative;
     width: 100%;
-    max-width: 100%;
+    max-width: 90%;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 10px;
