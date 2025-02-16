@@ -145,6 +145,7 @@ body {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 80px; /* Altura do cabeçalho */
 }
 
 .carousel-inner {
@@ -170,9 +171,9 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    padding: 1px;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 5%;
     font-size: 24px;
     z-index: 1001;
 }
@@ -206,6 +207,20 @@ body {
 
 .carousel-indicators span.active {
     background-color: white;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .carousel {
+        margin-top: 60px; /* Reduz o margin-top em telas menores */
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel {
+        margin-top: 50px; /* Reduz ainda mais o margin-top em telas muito pequenas */
+    }
+
 }
 /* Estilo da Seção de Informações sobre os Produtos */
 .product-info {
