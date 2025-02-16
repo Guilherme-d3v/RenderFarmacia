@@ -243,3 +243,90 @@ body {
     max-width: 800px;
     margin: 0 auto 20px;
 }
+
+/* Estilo da Seção de Destaque */
+.product-destaque {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha em telas menores */
+    justify-content: space-around; /* Espaçamento uniforme entre os cards */
+    padding: 20px;
+    gap: 20px; /* Espaçamento entre os cards */
+}
+
+/* Estilo do Card */
+.card {
+    width: 15rem; /* Largura fixa para cada card */
+    border: 1px solid #ddd; /* Borda sutil */
+    border-radius: 10px; /* Bordas arredondadas */
+    overflow: hidden; /* Garante que as bordas arredondadas sejam aplicadas às imagens */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efeito de hover suave */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Levanta o card ao passar o mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
+}
+
+/* Estilo da Imagem do Card */
+.card-img-top {
+    width: 100%;
+    height: 150px; /* Altura fixa para as imagens */
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+}
+
+/* Estilo do Corpo do Card */
+.card-body {
+    background-color: #8c658d;
+    padding: 15px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Estilo da Lista de Itens */
+.list-group-item {
+    background-color: #d4b77f!important; /* Cor de fundo cinza claro */
+    padding: 10px 15px; /* Espaçamento interno */
+    border-bottom: 1px solid #ddd; /* Borda inferior para separar os itens */
+    text-align: center; /* Centraliza o texto */
+    transition: background-color 0.3s ease; /* Efeito de transição suave */
+}
+
+/* Estilo dos Links do Card */
+.card-body a {
+    color: #0d1a29;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.card-body a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .card {
+        width: calc(33.33% - 20px); /* 3 cards por linha */
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 20px); /* 2 cards por linha */
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        width: 100%; /* 1 card por linha */
+    }
+}
