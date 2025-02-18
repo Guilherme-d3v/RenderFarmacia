@@ -2,16 +2,16 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-import psycopg2  # Importe o psycopg2 para verificar a versão
+import psycopg2
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or 'sua_chave_secreta_aqui'
 
 # Configurações do banco de dados (usando variáveis de ambiente)
-DB_HOST = os.environ.get("dpg-cuptcja3esus738ikfn0-a")
-DB_NAME = os.environ.get("boticasuplementos")
-DB_USER = os.environ.get("adm")
-DB_PASSWORD = os.environ.get("qGi0kV3ql9yG89wpn5sLkpI4ZWXX38aM")
+DB_HOST = os.environ.get("DB_HOST") or "dpg-cuptcja3esus738ikfn0-a.oregon-postgres.render.com"  # Use o host do print + o domínio
+DB_NAME = os.environ.get("DB_NAME") or "boticasuplementos"  # Use o nome do banco do print
+DB_USER = os.environ.get("DB_USER") or "adm"  # Use o usuário do print
+DB_PASSWORD = os.environ.get("DB_PASSWORD") or "qGi0kV3ql9yG89wpn5sLkpI4ZWXX38aM"  # Use a senha do print
 
 # Configuração SSL (usando sslmode=require)
 SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=require"
@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 try:
     db = SQLAlchemy(app)
-    print(f"psycopg2 version: {psycopg2.__version__}")  # Verifique a versão do psycopg2
+    print(f"psycopg2 version: {psycopg2.__version__}")
 except Exception as e:
     print(f"Erro ao conectar ao banco de dados: {e}")
     raise  # Re-lança a exceção para que o Render possa detectar o erro
