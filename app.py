@@ -1,14 +1,21 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
-# Configuração do Flask
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta_aqui'  # Chave secreta para sessões
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:9755@localhost/botica_suplementos'
+app.secret_key = os.environ.get("SECRET_KEY") or 'sua_chave_secreta_aqui'
+
+DB_HOST = os.environ.get("DB_HOST") or "dpg-cuptcja3esus738ikfre-a.oregon-postgres.render.com"
+DB_NAME = os.environ.get("DB_NAME") or "boticasuplementos"
+DB_USER = os.environ.get("DB_USER") or "adn"
+DB_PASSWORD = os.environ.get("DB_PASSWORD") or "qG10kV3q19y689wpn5aLkpI4ZWXX38aM"
+
+SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Inicializa o banco de dados e o Bcrypt
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
