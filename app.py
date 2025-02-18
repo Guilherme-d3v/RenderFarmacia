@@ -6,17 +6,31 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or 'sua_chave_secreta_aqui'
 
+# Configurações do banco de dados (usando variáveis de ambiente)
 DB_HOST = os.environ.get("DB_HOST") or "dpg-cuptcja3esus738ikfre-a.oregon-postgres.render.com"
 DB_NAME = os.environ.get("DB_NAME") or "boticasuplementos"
 DB_USER = os.environ.get("DB_USER") or "adn"
 DB_PASSWORD = os.environ.get("DB_PASSWORD") or "qG10kV3q19y689wpn5aLkpI4ZWXX38aM"
 
-SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+# Configuração SSL (recomendado: use certificado)
+SSL_CERT_PATH = os.environ.get("SSL_CERT_PATH")  # Variável de ambiente para o caminho do certificado
+
+if SSL_CERT_PATH:  # Se a variável de ambiente estiver definida
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=verify-full&sslrootcert={SSL_CERT_PATH}"
+else: # Se a variável de ambiente NÃO estiver definida, tenta sem verificação (NÃO RECOMENDADO PARA PRODUÇÃO)
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=require"
+    print("AVISO: Conexão SSL sem verificação de certificado. Isso não é seguro para produção.")
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+try:
+    db = SQLAlchemy(app)
+except Exception as e:
+    print(f"Erro ao conectar ao banco de dados: {e}")
+    # Outras ações de tratamento de erro, como encerrar o aplicativo
+
 bcrypt = Bcrypt(app)
 
 # Definição do Modelo de Usuário
@@ -98,8 +112,9 @@ def logout():
     return redirect(url_for('login'))
 
 # Cria o banco de dados (execute apenas uma vez)
-with app.app_context():
-    db.create_all()
+# Comente ou remova essa linha após a criação inicial das tabelas
+# with app.app_context():
+#    db.create_all()
 
 # Executa o Flask
 if __name__ == '__main__':
