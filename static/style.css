@@ -10,7 +10,7 @@ body {
     padding-top: 80px; /* Altura do header */
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('assets/fundo.png'); /* Caminho da imagem */
+    background-image: url('/static/images/fundo.png'); /* Caminho da imagem */
     background-size: cover; /* Cobrir toda a área */
     background-position: center; /* Centralizar a imagem */
     background-repeat: no-repeat; /* Evitar repetição */
