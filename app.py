@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
 # Configuração do banco de dados (usando variável de ambiente DATABASE_URL)
-SQLALCHEMY_DATABASE_URI = os.environ.get("postgresql://DBbotica_owner:npg_X32UOeqFIBaT@ep-cold-waterfall-a5l7qbis-pooler.us-east-2.aws.neon.tech/DBbotica?sslmode=require")
+SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
