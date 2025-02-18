@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import psycopg2
+from flask import jsonify
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
