@@ -63,12 +63,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartOverlay = document.getElementById('cart-overlay');
     const openCartButton = document.getElementById('open-cart-button');
     const closeCartButton = document.getElementById('close-cart-button');
-    const cartContent = document.getElementById('cart-content');
     const cartItems = document.getElementById('cart-items');
 
     if (openCartButton) {
         openCartButton.addEventListener('click', () => {
-            atualizarCarrinho(); // Chama a função para atualizar o carrinho
+            atualizarCarrinho();
             cartOverlay.style.display = 'flex';
         });
     }
@@ -83,9 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('/cart_data')
             .then(response => response.json())
             .then(data => {
-                cartItems.innerHTML = ''; // Limpa o conteúdo anterior
+                cartItems.innerHTML = '';
 
-                if (data.cart && data.cart.length > 0) {
+                if (data && data.cart && data.cart.length > 0) { // Verificação adicional
                     const table = document.createElement('table');
                     const headerRow = table.insertRow();
                     headerRow.insertCell().textContent = 'Produto';
@@ -101,21 +100,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
                 }
+            })
+            .catch(error => {
+                console.error("Erro ao carregar dados do carrinho:", error);
+                cartItems.innerHTML = '<p>Erro ao carregar o carrinho.</p>'; // Mensagem de erro
             });
     }
 
+
     function addToCart(productId, quantity = 1) {
-        fetch('/add_to_cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `product_id=${productId}&quantity=${quantity}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            atualizarCarrinho(); // Atualiza o carrinho após adicionar um item
-            // Outras ações, como mostrar uma mensagem de sucesso, etc.
-        });
+      fetch('/add_to_cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `product_id=${productId}&quantity=${quantity}`
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`); // Lança erro para ser capturado
+        }
+        return response.json();
+      })
+      .then(data => {
+        atualizarCarrinho();
+      })
+      .catch(error => {
+        console.error("Erro ao adicionar ao carrinho:", error);
+        // Aqui você pode adicionar feedback visual para o usuário sobre o erro
+        alert("Ocorreu um erro ao adicionar o produto ao carrinho. Tente novamente mais tarde.");
+      });
     }
 });
