@@ -132,3 +132,11 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 });
+fetch('/cart_data')
+    .then(response => response.json())
+    .then(data => {
+        // Processar os dados do carrinho
+    })
+    .catch(error => {
+        console.error('Erro ao carregar dados do carrinho:', error);
+    });

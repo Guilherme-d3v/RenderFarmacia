@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import psycopg2
 from flask import jsonify
+from models import CartItem
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
@@ -105,6 +106,22 @@ def logout():
 # Comente ou remova essa linha após a criação inicial das tabelas
 # with app.app_context():
 #     db.create_all()
+
+@app.route('/cart_data')
+def cart_data():
+    # 1. Busca os itens do carrinho do usuário (exemplo)
+    # Adapte essa parte para a lógica do seu aplicativo
+    cart_items = CartItem.query.filter_by(user_id=1).all()  # Filtra por user_id
+
+    # 2. Formata os dados para o JSON
+    cart_data = []
+    for item in cart_items:
+        cart_data.append({
+            'product': item.product.name,  # Acessa o nome do produto relacionado
+            'quantity': item.quantity
+        })
+
+    return jsonify(cart=cart_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
