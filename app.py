@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or 'sua_chave_secreta_aqui'
 
 # Configurações do banco de dados (usando variáveis de ambiente)
-DB_HOST = os.environ.get("dpg-cuptcja3esus738ikfn0-a.oregon-postgres.render.com")
+DB_HOST = os.environ.get("dpg-cuptcja3esus738ikfn0-a")
 DB_NAME = os.environ.get("boticasuplementos")
 DB_USER = os.environ.get("adm")
 DB_PASSWORD = os.environ.get("qGi0kV3ql9yG89wpn5sLkpI4ZWXX38aM")
