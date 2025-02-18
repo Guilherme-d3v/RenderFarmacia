@@ -2,34 +2,29 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+import psycopg2  # Importe o psycopg2 para verificar a versão
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or 'sua_chave_secreta_aqui'
 
 # Configurações do banco de dados (usando variáveis de ambiente)
-DB_HOST = os.environ.get("DB_HOST") or "dpg-cuptcja3esus738ikfre-a.oregon-postgres.render.com"
-DB_NAME = os.environ.get("DB_NAME") or "boticasuplementos"
-DB_USER = os.environ.get("DB_USER") or "adn"
-DB_PASSWORD = os.environ.get("DB_PASSWORD") or "qG10kV3q19y689wpn5aLkpI4ZWXX38aM"
+DB_HOST = os.environ.get("DB_HOST")
+DB_NAME = os.environ.get("DB_NAME")
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
-# Configuração SSL (recomendado: use certificado)
-SSL_CERT_PATH = os.environ.get("SSL_CERT_PATH")  # Variável de ambiente para o caminho do certificado
-
-if SSL_CERT_PATH:  # Se a variável de ambiente estiver definida
-    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=verify-full&sslrootcert={SSL_CERT_PATH}"
-else: # Se a variável de ambiente NÃO estiver definida, tenta sem verificação (NÃO RECOMENDADO PARA PRODUÇÃO)
-    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=require"
-    print("AVISO: Conexão SSL sem verificação de certificado. Isso não é seguro para produção.")
-
+# Configuração SSL (usando sslmode=require)
+SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=require"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 try:
     db = SQLAlchemy(app)
+    print(f"psycopg2 version: {psycopg2.__version__}")  # Verifique a versão do psycopg2
 except Exception as e:
     print(f"Erro ao conectar ao banco de dados: {e}")
-    # Outras ações de tratamento de erro, como encerrar o aplicativo
+    raise  # Re-lança a exceção para que o Render possa detectar o erro
 
 bcrypt = Bcrypt(app)
 
@@ -114,8 +109,7 @@ def logout():
 # Cria o banco de dados (execute apenas uma vez)
 # Comente ou remova essa linha após a criação inicial das tabelas
 # with app.app_context():
-#    db.create_all()
+#     db.create_all()
 
-# Executa o Flask
 if __name__ == '__main__':
     app.run(debug=True)
