@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         openCartButton.addEventListener('click', () => {
             atualizarCarrinho();
             cartOverlay.style.display = 'flex';
-        });
+        }); 
     }
 
     if (closeCartButton) {
