@@ -5,16 +5,10 @@ from flask_bcrypt import Bcrypt
 import psycopg2
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY") or 'sua_chave_secreta_aqui'
+app.secret_key = os.environ.get("SECRET_KEY")
 
-# Configurações do banco de dados (usando variáveis de ambiente)
-DB_HOST = os.environ.get("DB_HOST") or "dpg-cuptcja3esus738ikfn0-a.oregon-postgres.render.com"  # Use o host do print + o domínio
-DB_NAME = os.environ.get("DB_NAME") or "boticasuplementos"  # Use o nome do banco do print
-DB_USER = os.environ.get("DB_USER") or "adm"  # Use o usuário do print
-DB_PASSWORD = os.environ.get("DB_PASSWORD") or "qGi0kV3ql9yG89wpn5sLkpI4ZWXX38aM"  # Use a senha do print
-
-# Configuração SSL (usando sslmode=require)
-SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=require"
+# Configuração do banco de dados (usando variável de ambiente DATABASE_URL)
+SQLALCHEMY_DATABASE_URI = os.environ.get("postgresql://DBbotica_owner:npg_X32UOeqFIBaT@ep-cold-waterfall-a5l7qbis-pooler.us-east-2.aws.neon.tech/DBbotica?sslmode=require")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -24,7 +18,7 @@ try:
     print(f"psycopg2 version: {psycopg2.__version__}")
 except Exception as e:
     print(f"Erro ao conectar ao banco de dados: {e}")
-    raise  # Re-lança a exceção para que o Render possa detectar o erro
+    raise
 
 bcrypt = Bcrypt(app)
 
