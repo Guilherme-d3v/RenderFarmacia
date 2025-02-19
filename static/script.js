@@ -169,3 +169,4 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchCartData(); // Carrega os dados do carrinho do backend (se necessário)
     atualizarCarrinho(); // Atualiza o carrinho com os dados locais
 });
+
