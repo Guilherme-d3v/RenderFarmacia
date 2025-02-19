@@ -1,11 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
-
 db = SQLAlchemy()
+
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
 
     product = db.relationship('Product', backref='cart_items')
@@ -13,7 +13,6 @@ class CartItem(db.Model):
 
     def __repr__(self):
         return f"CartItem('{self.product_id}', '{self.user_id}', '{self.quantity}')"
-
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
