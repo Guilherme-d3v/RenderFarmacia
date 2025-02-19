@@ -16,7 +16,220 @@
             <div class="menu-icon" onclick="toggleNav()">&#9776;</div>
             <ul class="nav-links">
                 <li><a href="#">Escolha por sintomas</a></li>
-                <li><a href="#">Produtos</a></li>
+                <li><a href="#">Produtos</a></li><!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Botica Suplementos</title>
+                    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+                    <style>
+                        /* Estilos para o modal do carrinho */
+                        #cart-overlay {
+                            display: none;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 1000;
+                        }
+                
+                        .cart-content {
+                            background-color: white;
+                            padding: 20px;
+                            border-radius: 10px;
+                            width: 400px;
+                            max-width: 90%;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                        }
+                
+                        .cart-content h2 {
+                            margin-top: 0;
+                        }
+                
+                        #cart-items {
+                            max-height: 300px;
+                            overflow-y: auto;
+                            margin-bottom: 20px;
+                        }
+                
+                        .cart-item {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 10px;
+                            border-bottom: 1px solid #ccc;
+                        }
+                
+                        #close-cart-button {
+                            background-color: #ff4444;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                
+                        #close-cart-button:hover {
+                            background-color: #cc0000;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <header class="header">
+                        <div class="logo">
+                            <img src="/static/images/logo3.png" alt="Logo da Loja">
+                            <h1>Botica Suplementos</h1>
+                        </div>
+                        <nav class="navbar">
+                            <div class="menu-icon" onclick="toggleNav()">&#9776;</div>
+                            <ul class="nav-links">
+                                <li><a href="#">Escolha por sintomas</a></li>
+                                <li><a href="#">Produtos</a></li>
+                                <li><a href="#">Linhas completas</a></li>
+                                <li><a href="#">Área do Cliente</a></li>
+                            </ul>
+                        </nav>
+                        <div class="user-actions">
+                            <a href="/login" class="login-container">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                </svg>
+                                <span class="login-text">Login</span>
+                            </a>
+                            <button id="open-cart-button" class="cart-container" type="button" onclick="abrirCarrinho()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart">
+                                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                                </svg>
+                                <span class="cart-text">Carrinho</span>
+                                <span id="contador-carrinho">0</span>
+                            </button>
+                        </div>
+                    </header>
+                
+                    <main>
+                        <div class="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item"><img src="/static/images/cr1.webp" alt="Imagem 1"></div>
+                                <div class="carousel-item"><img src="/static/images/cr2.webp" alt="Imagem 2"></div>
+                                <div class="carousel-item"><img src="/static/images/cr3.jpg" alt="Imagem 3"></div>
+                                <div class="carousel-item"><img src="/static/images/cr4.webp" alt="Imagem 4"></div>
+                            </div>
+                            <button class="carousel-button prev">&#10094;</button>
+                            <button class="carousel-button next">&#10095;</button>
+                            <div class="carousel-indicators">
+                                <span class="active"></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </main>
+                
+                    <section class="product-info">
+                        <div class="section-bar top-bar"></div>
+                        <div class="info-content">
+                            <h2>Dermocosméticos de excelência que aliam <br> desempenho superior clareza e preços justos</h2>
+                            <p>• Fórmulas altamente concentradas garantindo resultados eficazes com segurança comprovada</p>
+                            <p>• Produtos com ativos de última geração, que garantem a eficácia e a segurança dos tratamentos</p>
+                            <p>• Transparência total nas concentrações e benefícios de cada ingrediente ativo</p>
+                            <p>• Preços competitivos para tratamentos fundamentados na ciência</p>
+                        </div>
+                        <div class="section-bar bottom-bar"></div>
+                    </section>
+                
+                    <section class="product-destaque">
+                        <div class="card" style="width: 18rem;">
+                            <img src="/static/images/kitsono.png" class="card-img-top" alt="Kit Sono">
+                            <div class="card-body">
+                                <h5 class="card-title">Kit sono</h5>
+                                <p class="card-text">Ingredientes naturais selecionados para ajudar na qualidade de sono e descanso.</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Folhas de Camomila</li>
+                                <li class="list-group-item">Extrato de maracujá</li>
+                                <li class="list-group-item">Pó de Rivotril</li>
+                            </ul>
+                            <div class="card-body">
+                                <button class="card-button add-to-cart" onclick="adicionarAoCarrinho('Kit Sono', 50.00)">Adicionar ao Carrinho</button>
+                                <button class="card-button view-details" onclick="viewDetails()">Ver Especificações</button>
+                            </div>
+                        </div>
+                        <!-- Repetir para outros cards -->
+                    </section>
+                
+                    <div id="cart-overlay">
+                        <div class="cart-content">
+                            <h2>Carrinho de compras</h2>
+                            <div id="cart-items"></div>
+                            <p>Total: R$ <span id="cart-total">0,00</span></p>
+                            <button id="close-cart-button" onclick="fecharCarrinho()">Fechar</button>
+                        </div>
+                    </div>
+                
+                    <script>
+                        let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+                
+                        function adicionarAoCarrinho(nome, preco) {
+                            const itemExistente = carrinho.find(item => item.nome === nome);
+                
+                            if (itemExistente) {
+                                itemExistente.quantidade += 1;
+                            } else {
+                                carrinho.push({ nome, preco, quantidade: 1 });
+                            }
+                
+                            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                            atualizarCarrinho();
+                            alert(`${nome} adicionado ao carrinho!`);
+                        }
+                
+                        function abrirCarrinho() {
+                            document.getElementById('cart-overlay').style.display = 'flex';
+                            atualizarCarrinho();
+                        }
+                
+                        function fecharCarrinho() {
+                            document.getElementById('cart-overlay').style.display = 'none';
+                        }
+                
+                        function atualizarCarrinho() {
+                            const cartItems = document.getElementById('cart-items');
+                            const cartTotal = document.getElementById('cart-total');
+                            const contador = document.getElementById('contador-carrinho');
+                
+                            cartItems.innerHTML = '';
+                            let total = 0;
+                
+                            carrinho.forEach(item => {
+                                const itemElement = document.createElement('div');
+                                itemElement.classList.add('cart-item');
+                                itemElement.innerHTML = `
+                                    <span>${item.nome} - R$ ${item.preco.toFixed(2)} x ${item.quantidade}</span>
+                                    <button onclick="removerDoCarrinho('${item.nome}')">Remover</button>
+                                `;
+                                cartItems.appendChild(itemElement);
+                                total += item.preco * item.quantidade;
+                            });
+                
+                            cartTotal.textContent = total.toFixed(2);
+                            contador.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+                        }
+                
+                        function removerDoCarrinho(nome) {
+                            carrinho = carrinho.filter(item => item.nome !== nome);
+                            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                            atualizarCarrinho();
+                        }
+                
+                        // Atualiza o carrinho ao carregar a página
+                        window.onload = atualizarCarrinho;
+                    </script>
+                </body>
+                </html>
                 <li><a href="#">Linhas completas</a></li>
                 <li><a href="#">Área do Cliente</a></li>
             </ul>
