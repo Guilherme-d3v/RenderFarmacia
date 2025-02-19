@@ -1,8 +1,7 @@
 /* =========================
    Reset Básico e Configuração Inicial
    ========================= */
-/* Remove as margens e preenchimentos padrões e define o box-sizing para incluir bordas e padding no cálculo da largura */
-* {
+   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -11,46 +10,43 @@
 /* =========================
    Estilo do Corpo da Página
    ========================= */
-/* Define os estilos básicos do corpo: um espaçamento superior para acomodar o header fixo, fonte padrão e imagem de fundo que cobre toda a área */
 body {
-    padding-top: 80px; /* Reserva espaço para o cabeçalho fixo */
+    padding-top: 80px;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('/static/images/fundo.png'); /* Imagem de fundo */
-    background-size: cover;         /* A imagem cobre toda a área disponível */
-    background-position: center;    /* Centraliza a imagem de fundo */
-    background-repeat: no-repeat;   /* Evita que a imagem seja repetida */
-    background-attachment: fixed;   /* Mantém a imagem fixa durante o scroll */
+    background-image: url('/static/images/fundo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* =========================
    Cabeçalho (Header)
    ========================= */
-/* Define o cabeçalho fixo, com altura definida, alinhamento central e espaçamento interno */
 .header {
-    height: 80px; /* Altura fixa para o header */
+    height: 80px;
     display: flex;
-    justify-content: space-between; /* Distribui o conteúdo com espaço entre os itens */
-    align-items: center;            /* Centraliza verticalmente os itens */
-    background-color: #9370DB;      /* Cor de fundo roxo claro */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #9370DB;
     padding: 10px 20px;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;                /* Garante que o header fique acima de outros elementos */
+    z-index: 1000;
 }
 
 /* =========================
    Logo e Nome da Loja
    ========================= */
-/* Estiliza a área da logo, onde a imagem e o título são alinhados horizontalmente */
 .logo {
     display: flex;
     align-items: center;
 }
 .logo img {
-    height: 50px;          /* Define a altura da imagem da logo */
-    margin-right: 10px;     /* Espaço entre a imagem e o título */
+    height: 50px;
+    margin-right: 10px;
 }
 .logo h1 {
     color: white;
@@ -60,46 +56,40 @@ body {
 /* =========================
    Barra de Navegação (Navbar)
    ========================= */
-/* Configura a área de navegação; o posicionamento relativo permite que o menu dropdown seja posicionado corretamente */
 .navbar {
     display: flex;
     align-items: center;
     position: relative;
 }
-
-/* Estilo dos links da navegação (menu dropdown) */
 .nav-links {
     list-style: none;
-    display: none;                /* Inicialmente oculto */
-    flex-direction: column;       /* Organiza os links verticalmente */
+    display: none;
+    flex-direction: column;
     position: absolute;
-    top: 50px;                    /* Posicionado logo abaixo do ícone do menu */
-    left: 50%;                    /* Centralizado horizontalmente */
-    transform: translateX(-50%);  /* Ajusta a centralização */
-    background-color: #dcd7e4;    /* Fundo claro para o menu */
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #dcd7e4;
     border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1001;
     min-width: 250px;
     width: auto;
     min-height: 100px;
     height: auto;
-    gap: 15px;                  /* Espaço entre os links */
+    gap: 15px;
 }
-/* Exibe os links quando a classe "active" é adicionada */
 .nav-links.active {
     display: flex;
 }
-/* Estiliza cada link da lista */
 .nav-links li a {
     color: rgb(212, 116, 25);
-    text-decoration: none;  /* Remove sublinhado */
+    text-decoration: none;
     font-size: 18px;
     text-align: center;
     padding: 15px 25px;
 }
-/* Altera a aparência ao passar o mouse */
 .nav-links li a:hover {
     text-decoration: underline;
 }
@@ -107,7 +97,6 @@ body {
 /* =========================
    Ícone do Menu (Hambúrguer)
    ========================= */
-/* Sempre visível e com margens para um bom espaçamento lateral */
 .menu-icon {
     display: block;
     font-size: 24px;
@@ -120,21 +109,26 @@ body {
 /* =========================
    Área de Ações do Usuário (Login e Carrinho)
    ========================= */
-/* Define a disposição dos elementos de login e carrinho */
 .user-actions {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-/* Garante que os links não exibam sublinhado */
 .user-actions a {
     text-decoration: none !important;
 }
-/* Organiza os elementos internos de login e carrinho */
 .login-container, .cart-container {
     display: flex;
     align-items: center;
     gap: 5px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.login-container:hover, .cart-container:hover {
+    background-color: #0056b3;
 }
 .login-container svg, .cart-container svg {
     width: 20px;
@@ -145,12 +139,14 @@ body {
     font-size: 16px;
     color: white;
 }
-/* Efeito visual ao passar o mouse */
-.login-container:hover, .cart-container:hover {
-    opacity: 0.8;
+#contador-carrinho {
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 4px;
 }
-
-/* Responsividade: Oculta os textos de login e carrinho em telas pequenas (abaixo de 600px) */
 @media (max-width: 600px) {
     .login-text, .cart-text {
         display: none;
@@ -160,7 +156,6 @@ body {
 /* =========================
    Carrossel de Imagens
    ========================= */
-/* Contêiner do carrossel com bordas arredondadas, sombra e altura mínima definida */
 .carousel {
     position: relative;
     width: 100%;
@@ -169,21 +164,17 @@ body {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: auto;  /* Ajusta o posicionamento em relação ao header */
-    min-height: 200px; /* Altura mínima do carrossel */
+    margin-top: auto;
+    min-height: 200px;
 }
 .carousel-inner {
     display: flex;
-    transition: transform 0.5s ease-in-out; /* Efeito de transição ao mudar de slide */
+    transition: transform 0.5s ease-in-out;
 }
 .carousel-item {
     min-width: 100%;
     box-sizing: border-box;
 }
-/* Estilos para as imagens do carrossel:
-   - A largura ocupa 100% do contêiner.
-   - A altura é automática, mas há um limite máximo para evitar imagens excessivamente grandes.
-   - Usa object-fit: cover para que a imagem cubra o espaço mantendo o aspecto */
 .carousel-item img {
     width: 100%;
     height: auto;
@@ -196,7 +187,6 @@ body {
 /* =========================
    Botões de Navegação do Carrossel
    ========================= */
-/* Botões posicionados verticalmente no meio do carrossel */
 .carousel-button {
     position: absolute;
     top: 50%;
@@ -220,7 +210,6 @@ body {
 /* =========================
    Indicadores do Carrossel
    ========================= */
-/* Pequenos círculos que mostram qual slide está ativo */
 .carousel-indicators {
     position: absolute;
     bottom: 10px;
@@ -245,7 +234,6 @@ body {
 /* =========================
    Responsividade do Carrossel
    ========================= */
-/* Em telas maiores, define uma altura específica; em dispositivos menores, reduz a altura */
 @media (min-width: 1200px) {
     .carousel-item img {
         height: 500px;
@@ -281,19 +269,16 @@ body {
 /* =========================
    Seção de Informações dos Produtos
    ========================= */
-/* Área que apresenta informações sobre os produtos, centralizada com espaçamento */
 .product-info {
     padding: 40px 20px;
     text-align: center;
 }
-/* Barras decorativas que separam visualmente a seção */
 .section-bar {
     height: 4px;
     background-color: #333;
     margin: 20px auto;
     width: 55%;
 }
-/* Barra superior com dimensões e margens personalizadas */
 .top-bar {
     height: 4px;
     background-color: #333;
@@ -302,7 +287,6 @@ body {
     margin-top: 10px;
     margin-bottom: 30px;
 }
-/* Estiliza os títulos e parágrafos dentro da área de informações */
 .info-content h2 {
     font-size: 1.3rem;
     margin-bottom: 20px;
@@ -319,7 +303,6 @@ body {
 /* =========================
    Seção de Destaque dos Produtos (Cards)
    ========================= */
-/* Organiza os cards em um layout flexível e responsivo */
 .product-destaque {
     display: flex;
     flex-wrap: wrap;
@@ -331,7 +314,6 @@ body {
 /* =========================
    Estilização dos Cards
    ========================= */
-/* Card: contêiner com largura fixa, borda, sombra e transição suave */
 .card {
     width: 15rem;
     border: 1px solid #ddd;
@@ -344,13 +326,11 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-/* Imagem do card: ocupa 100% da largura com altura fixa e se ajusta sem distorcer */
 .card-img-top {
     width: 100%;
     height: 150px;
     object-fit: cover;
 }
-/* Corpo do card: área interna com fundo e alinhamento centralizado */
 .card-body {
     background-color: #8c658d;
     padding: 15px;
@@ -364,8 +344,6 @@ body {
     font-size: 0.9rem;
     color: #555;
 }
-
-/* Lista de Itens do Card: estilo para os itens de uma lista interna */
 .list-group-item {
     background-color: #d4b77f !important;
     padding: 10px 15px;
@@ -373,8 +351,6 @@ body {
     text-align: center;
     transition: background-color 0.3s ease;
 }
-
-/* Links dentro do Card: remove sublinhado e adiciona espaçamento */
 .card-body a {
     color: #0d1a29;
     text-decoration: none;
@@ -387,7 +363,6 @@ body {
 /* =========================
    Botões dos Cards
    ========================= */
-/* Botões gerais: estilo consistente para botões de ação */
 .card-button {
     display: inline-block;
     padding: 10px 20px;
@@ -401,14 +376,12 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-/* Botão "Adicionar ao Carrinho" com cor diferenciada */
 .card-button.add-to-cart {
     background-color: #d4b77f;
 }
 .card-button.add-to-cart:hover {
     background-color: #b47b07;
 }
-/* Botão "Ver Especificações" com cor diferenciada */
 .card-button.view-details {
     background-color: #d4b77f;
 }
@@ -419,19 +392,16 @@ body {
 /* =========================
    Responsividade dos Cards
    ========================= */
-/* Em telas até 1200px, ajusta os cards para três por linha */
 @media (max-width: 1200px) {
     .card {
         width: calc(33.33% - 20px);
     }
 }
-/* Em telas até 768px, ajusta os cards para dois por linha */
 @media (max-width: 768px) {
     .card {
         width: calc(50% - 20px);
     }
 }
-/* Em telas até 576px, os cards ocupam toda a largura (um por linha) */
 @media (max-width: 576px) {
     .card {
         width: 100%;
@@ -441,7 +411,6 @@ body {
 /* =========================
    Modal do Carrinho (Overlay)
    ========================= */
-/* Overlay que cobre toda a tela para exibir o modal do carrinho; oculto por padrão */
 #cart-overlay {
     position: fixed;
     top: 0;
@@ -452,9 +421,8 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    display: none; /* Mantido oculto até ser ativado */
+    display: none;
 }
-/* Conteúdo do modal do carrinho: área centralizada com fundo branco e sombra */
 .cart-content {
     background-color: white;
     padding: 20px;
@@ -466,8 +434,6 @@ body {
 .cart-content h2 {
     margin-top: 0;
 }
-
-/* Tabela de itens do carrinho */
 #cart-items {
     max-height: 300px;
     overflow-y: auto;
