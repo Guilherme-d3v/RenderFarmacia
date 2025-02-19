@@ -124,7 +124,7 @@ function adicionarAoCarrinho(produto_id, quantidade) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `produto_id=${produto_id}&quantidade=${quantidade}`
+        body: `produto_id=<span class="math-inline">\{produto\_id\}&quantidade\=</span>{quantidade}`
     })
     .then(response => response.json())
     .then(data => {

@@ -123,7 +123,7 @@ def adicionar_ao_carrinho():
     if not user_id:
         return jsonify({'error': 'Usuário não logado'}), 401
 
-    product_id = request.form.get('product_id')
+    product_id = request.form.get('produto_id')
     quantidade = int(request.form.get('quantidade'))
 
     produto = Product.query.get(product_id)
@@ -145,7 +145,7 @@ def adicionar_ao_carrinho():
         db.session.rollback()
         print(f"Erro ao adicionar ao carrinho: {e}")
         return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
-
+    
 @app.route('/carrinho')
 def carrinho():
     user_id = session.get('user_id')
