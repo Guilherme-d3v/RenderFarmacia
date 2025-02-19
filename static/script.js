@@ -59,141 +59,113 @@ setInterval(() => {
     updateCarousel();
 }, 5000); // Muda a cada 5 segundos
 
-document.addEventListener('DOMContentLoaded', function() {
-    const cartOverlay = document.getElementById('cart-overlay');
-    const openCartButton = document.getElementById('open-cart-button');
-    const closeCartButton = document.getElementById('close-cart-button');
-    const cartItems = document.getElementById('cart-items');
-
-    if (openCartButton) {
-        openCartButton.addEventListener('click', () => {
-            atualizarCarrinho();
-            cartOverlay.style.display = 'flex';
-        }); 
-    }
-
-    if (closeCartButton) {
-        closeCartButton.addEventListener('click', () => {
-            cartOverlay.style.display = 'none';
-        });
-    }
-
-    function atualizarCarrinho() {
-        fetch('/cart_data')
-            .then(response => response.json())
-            .then(data => {
-                cartItems.innerHTML = '';
-
-                if (data && data.cart && data.cart.length > 0) { // Verificação adicional
-                    const table = document.createElement('table');
-                    const headerRow = table.insertRow();
-                    headerRow.insertCell().textContent = 'Produto';
-                    headerRow.insertCell().textContent = 'Quantidade';
-
-                    data.cart.forEach(item => {
-                        const row = table.insertRow();
-                        row.insertCell().textContent = item.product;
-                        row.insertCell().textContent = item.quantity;
-                    });
-
-                    cartItems.appendChild(table);
-                } else {
-                    cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
-                }
-            })
-            .catch(error => {
-                console.error("Erro ao carregar dados do carrinho:", error);
-                cartItems.innerHTML = '<p>Erro ao carregar o carrinho.</p>'; // Mensagem de erro
-            });
-    }
-
-
-    function addToCart(productId, quantity = 1) {
-      fetch('/add_to_cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `product_id=${productId}&quantity=${quantity}`
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`); // Lança erro para ser capturado
-        }
-        return response.json();
-      })
-      .then(data => {
-        atualizarCarrinho();
-      })
-      .catch(error => {
-        console.error("Erro ao adicionar ao carrinho:", error);
-        // Aqui você pode adicionar feedback visual para o usuário sobre o erro
-        alert("Ocorreu um erro ao adicionar o produto ao carrinho. Tente novamente mais tarde.");
-      });
-    }
-});
-fetch('/cart_data')
-    .then(response => response.json())
-    .then(data => {
-        // Processar os dados do carrinho
-    })
-    .catch(error => {
-        console.error('Erro ao carregar dados do carrinho:', error);
-    });
-
+// Lógica do Carrinho
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
 function adicionarAoCarrinho(nome, preco) {
-const itemExistente = carrinho.find(item => item.nome === nome);
+    const itemExistente = carrinho.find(item => item.nome === nome);
 
-if (itemExistente) {
-    itemExistente.quantidade += 1;
-} else {
-    carrinho.push({ nome, preco, quantidade: 1 });
-}
+    if (itemExistente) {
+        itemExistente.quantidade += 1;
+    } else {
+        carrinho.push({ nome, preco, quantidade: 1 });
+    }
 
-localStorage.setItem('carrinho', JSON.stringify(carrinho));
-atualizarCarrinho();
-alert(`${nome} adicionado ao carrinho!`);
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    atualizarCarrinho();
+    alert(`${nome} adicionado ao carrinho!`);
 }
 
 function abrirCarrinho() {
-document.getElementById('cart-overlay').style.display = 'flex';
-atualizarCarrinho();
+    document.getElementById('cart-overlay').style.display = 'flex';
+    atualizarCarrinho();
 }
 
 function fecharCarrinho() {
-document.getElementById('cart-overlay').style.display = 'none';
+    document.getElementById('cart-overlay').style.display = 'none';
 }
 
 function atualizarCarrinho() {
-const cartItems = document.getElementById('cart-items');
-const cartTotal = document.getElementById('cart-total');
-const contador = document.getElementById('contador-carrinho');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const contador = document.getElementById('contador-carrinho');
 
-cartItems.innerHTML = '';
-let total = 0;
+    cartItems.innerHTML = '';
+    let total = 0;
 
-carrinho.forEach(item => {
-    const itemElement = document.createElement('div');
-    itemElement.classList.add('cart-item');
-    itemElement.innerHTML = `
-        <span>${item.nome} - R$ ${item.preco.toFixed(2)} x ${item.quantidade}</span>
-        <button onclick="removerDoCarrinho('${item.nome}')">Remover</button>
-    `;
-    cartItems.appendChild(itemElement);
-    total += item.preco * item.quantidade;
-});
+    carrinho.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('cart-item');
+        itemElement.innerHTML = `
+            <span>${item.nome} - R$ ${item.preco.toFixed(2)} x ${item.quantidade}</span>
+            <button onclick="removerDoCarrinho('${item.nome}')">Remover</button>
+        `;
+        cartItems.appendChild(itemElement);
+        total += item.preco * item.quantidade;
+    });
 
-cartTotal.textContent = total.toFixed(2);
-contador.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+    cartTotal.textContent = total.toFixed(2);
+    contador.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
 }
 
 function removerDoCarrinho(nome) {
-carrinho = carrinho.filter(item => item.nome !== nome);
-localStorage.setItem('carrinho', JSON.stringify(carrinho));
-atualizarCarrinho();
+    carrinho = carrinho.filter(item => item.nome !== nome);
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    atualizarCarrinho();
+}
+
+// Integração com o backend (opcional)
+function fetchCartData() {
+    fetch('/cart_data')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.cart && data.cart.length > 0) {
+                carrinho = data.cart; // Atualiza o carrinho com os dados do backend
+                atualizarCarrinho();
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar dados do carrinho:', error);
+        });
+}
+
+function addToCart(productId, quantity = 1) {
+    fetch('/add_to_cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `product_id=${productId}&quantity=${quantity}`
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        fetchCartData(); // Atualiza o carrinho após adicionar um item
+    })
+    .catch(error => {
+        console.error("Erro ao adicionar ao carrinho:", error);
+        alert("Ocorreu um erro ao adicionar o produto ao carrinho. Tente novamente mais tarde.");
+    });
 }
 
 // Atualiza o carrinho ao carregar a página
-window.onload = atualizarCarrinho;
+document.addEventListener('DOMContentLoaded', () => {
+    const cartOverlay = document.getElementById('cart-overlay');
+    const openCartButton = document.getElementById('open-cart-button');
+    const closeCartButton = document.getElementById('close-cart-button');
+
+    if (openCartButton) {
+        openCartButton.addEventListener('click', abrirCarrinho);
+    }
+
+    if (closeCartButton) {
+        closeCartButton.addEventListener('click', fecharCarrinho);
+    }
+
+    fetchCartData(); // Carrega os dados do carrinho do backend (se necessário)
+    atualizarCarrinho(); // Atualiza o carrinho com os dados locais
+});
