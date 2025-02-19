@@ -115,36 +115,45 @@ def logout():
     flash('Logout realizado com sucesso!', 'success')
     return redirect(url_for('login'))
 
-# Criação inicial das tabelas do banco de dados (descomente e execute uma única vez)
-# with app.app_context():
-#     db.create_all()
 
-@app.route('/cart_data')
-def cart_data():
-    # Rota que retorna os dados do carrinho em formato JSON.
-    # Atualmente, filtra os itens do carrinho para um usuário específico (user_id = 1)
-    cart_items = CartItem.query.filter_by(user_id=1).all()
-
-    # Formata os dados para retornar um JSON com a lista de itens
-    cart_data = []
-    for item in cart_items:
-        cart_data.append({
-            'product': item.product.name,  # Assume que o modelo CartItem tem um relacionamento com um produto
-            'quantity': item.quantity
-        })
-
-    return jsonify(cart=cart_data)
-
-@app.route('/carrinho') # Removi o <int:user_id> da rota
-def carrinho():
-    user_id = session.get('user_id')  # Obtem o ID do usuário da sessão
+# Rotas do carrinho de compras
+@app.route('/adicionar_ao_carrinho', methods=['POST'])
+def adicionar_ao_carrinho():
+    user_id = session.get('user_id')
     if not user_id:
-        return jsonify({'error': 'Usuário não logado'}), 401 # Retorna erro se não estiver logado
+        return jsonify({'error': 'Usuário não logado'}), 401
 
-    # Busca os itens do carrinho do usuário no banco de dados
+    product_id = request.form.get('product_id')
+    quantidade = int(request.form.get('quantidade'))
+
+    produto = Product.query.get(product_id)
+    if not produto:
+        return jsonify({'error': 'Produto não encontrado'}), 404
+
+    item_existente = CartItem.query.filter_by(user_id=user_id, product_id=product_id).first()
+
+    try:
+        if item_existente:
+            item_existente.quantidade += quantidade
+        else:
+            novo_item = CartItem(user_id=user_id, product_id=product_id, quantidade=quantidade)
+            db.session.add(novo_item)
+
+        db.session.commit()
+        return jsonify({'message': 'Produto adicionado ao carrinho'}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(f"Erro ao adicionar ao carrinho: {e}")
+        return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
+
+@app.route('/carrinho')
+def carrinho():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'Usuário não logado'}), 401
+
     itens_no_carrinho = CartItem.query.filter_by(user_id=user_id).all()
 
-    # Formata os dados para enviar para o frontend (JSON)
     itens_json = []
     for item in itens_no_carrinho:
         itens_json.append({
@@ -157,43 +166,6 @@ def carrinho():
         })
 
     return jsonify(itens_json)
-
-@app.route('/adicionar_ao_carrinho', methods=['POST'])
-def adicionar_ao_carrinho():
-    # 1. Obtenha os dados do formulário
-    user_id = session.get('user_id')  # Obtem o ID do usuário da sessão
-    if not user_id:
-        return jsonify({'error': 'Usuário não logado'}), 401 # Retorna erro se não estiver logado
-
-    produto_id = request.form.get('produto_id')
-    quantidade = int(request.form.get('quantidade'))
-
-    # 2. Verifique se o produto existe
-    produto = Product.query.get(produto_id)
-    if not produto:
-        return jsonify({'error': 'Produto não encontrado'}), 404
-
-    # 3. Verifique se já existe um item no carrinho para o produto
-    item_existente = CartItem.query.filter_by(user_id=user_id, product_id=produto_id).first()
-
-    try:
-        if item_existente:
-            # 4a. Se o item existe, atualize a quantidade
-            item_existente.quantidade += quantidade
-        else:
-            # 4b. Se o item não existe, crie um novo item
-            novo_item = CartItem(user_id=user_id, product_id=produto_id, quantidade=quantidade)
-            db.session.add(novo_item)
-
-        db.session.commit() # Salva as alterações no banco de dados
-        return jsonify({'message': 'Produto adicionado ao carrinho'}), 200
-
-    except Exception as e: # Trata possíveis erros
-        db.session.rollback() # Em caso de erro, desfaz as alterações
-        print(f"Erro ao adicionar ao carrinho: {e}")
-        return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
-
-
 # Roda o aplicativo Flask em modo de debug, se este arquivo for executado diretamente
 if __name__ == '__main__':
     app.run(debug=True)
