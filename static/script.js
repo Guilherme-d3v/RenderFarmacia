@@ -140,3 +140,60 @@ fetch('/cart_data')
     .catch(error => {
         console.error('Erro ao carregar dados do carrinho:', error);
     });
+
+let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+function adicionarAoCarrinho(nome, preco) {
+const itemExistente = carrinho.find(item => item.nome === nome);
+
+if (itemExistente) {
+    itemExistente.quantidade += 1;
+} else {
+    carrinho.push({ nome, preco, quantidade: 1 });
+}
+
+localStorage.setItem('carrinho', JSON.stringify(carrinho));
+atualizarCarrinho();
+alert(`${nome} adicionado ao carrinho!`);
+}
+
+function abrirCarrinho() {
+document.getElementById('cart-overlay').style.display = 'flex';
+atualizarCarrinho();
+}
+
+function fecharCarrinho() {
+document.getElementById('cart-overlay').style.display = 'none';
+}
+
+function atualizarCarrinho() {
+const cartItems = document.getElementById('cart-items');
+const cartTotal = document.getElementById('cart-total');
+const contador = document.getElementById('contador-carrinho');
+
+cartItems.innerHTML = '';
+let total = 0;
+
+carrinho.forEach(item => {
+    const itemElement = document.createElement('div');
+    itemElement.classList.add('cart-item');
+    itemElement.innerHTML = `
+        <span>${item.nome} - R$ ${item.preco.toFixed(2)} x ${item.quantidade}</span>
+        <button onclick="removerDoCarrinho('${item.nome}')">Remover</button>
+    `;
+    cartItems.appendChild(itemElement);
+    total += item.preco * item.quantidade;
+});
+
+cartTotal.textContent = total.toFixed(2);
+contador.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+}
+
+function removerDoCarrinho(nome) {
+carrinho = carrinho.filter(item => item.nome !== nome);
+localStorage.setItem('carrinho', JSON.stringify(carrinho));
+atualizarCarrinho();
+}
+
+// Atualiza o carrinho ao carregar a página
+window.onload = atualizarCarrinho;
