@@ -217,3 +217,36 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchCartData();
     atualizarCarrinho();
 });
+
+
+// Adicionar ao carrinho
+function adicionarAoCarrinho(produto_id, quantidade) {
+    fetch('/adicionar_ao_carrinho', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `produto_id=${produto_id}&quantidade=${quantidade}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error(data.error);
+            // Exiba a mensagem de erro para o usuário
+        } else {
+            console.log(data.message);
+            // Atualize a exibição do carrinho
+            atualizarCarrinho();
+        }
+    });
+}
+
+// Obter dados do carrinho
+function atualizarCarrinho() {
+    fetch('/carrinho')
+    .then(response => response.json())
+    .then(data => {
+        // Atualize a exibição do carrinho com os dados recebidos
+        console.log(data);
+    });
+}

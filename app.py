@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import psycopg2
-from models import CartItem  # Importa o modelo de item de carrinho definido em outro arquivo (models.py)
+from models import CartItem,Product, Category, Review# Importa o modelo de item de carrinho definido em outro arquivo (models.py)
 
 # Inicialização do aplicativo Flask
 app = Flask(__name__)
@@ -134,6 +134,65 @@ def cart_data():
         })
 
     return jsonify(cart=cart_data)
+
+@app.route('/carrinho') # Removi o <int:user_id> da rota
+def carrinho():
+    user_id = session.get('user_id')  # Obtem o ID do usuário da sessão
+    if not user_id:
+        return jsonify({'error': 'Usuário não logado'}), 401 # Retorna erro se não estiver logado
+
+    # Busca os itens do carrinho do usuário no banco de dados
+    itens_no_carrinho = CartItem.query.filter_by(user_id=user_id).all()
+
+    # Formata os dados para enviar para o frontend (JSON)
+    itens_json = []
+    for item in itens_no_carrinho:
+        itens_json.append({
+            'produto': {
+                'id': item.product.id,
+                'nome': item.product.name,
+                'preco': item.product.preco
+            },
+            'quantidade': item.quantidade
+        })
+
+    return jsonify(itens_json)
+
+@app.route('/adicionar_ao_carrinho', methods=['POST'])
+def adicionar_ao_carrinho():
+    # 1. Obtenha os dados do formulário
+    user_id = session.get('user_id')  # Obtem o ID do usuário da sessão
+    if not user_id:
+        return jsonify({'error': 'Usuário não logado'}), 401 # Retorna erro se não estiver logado
+
+    produto_id = request.form.get('produto_id')
+    quantidade = int(request.form.get('quantidade'))
+
+    # 2. Verifique se o produto existe
+    produto = Product.query.get(produto_id)
+    if not produto:
+        return jsonify({'error': 'Produto não encontrado'}), 404
+
+    # 3. Verifique se já existe um item no carrinho para o produto
+    item_existente = CartItem.query.filter_by(user_id=user_id, product_id=produto_id).first()
+
+    try:
+        if item_existente:
+            # 4a. Se o item existe, atualize a quantidade
+            item_existente.quantidade += quantidade
+        else:
+            # 4b. Se o item não existe, crie um novo item
+            novo_item = CartItem(user_id=user_id, product_id=produto_id, quantidade=quantidade)
+            db.session.add(novo_item)
+
+        db.session.commit() # Salva as alterações no banco de dados
+        return jsonify({'message': 'Produto adicionado ao carrinho'}), 200
+
+    except Exception as e: # Trata possíveis erros
+        db.session.rollback() # Em caso de erro, desfaz as alterações
+        print(f"Erro ao adicionar ao carrinho: {e}")
+        return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
+
 
 # Roda o aplicativo Flask em modo de debug, se este arquivo for executado diretamente
 if __name__ == '__main__':
