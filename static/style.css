@@ -120,6 +120,7 @@ body {
 .login-container, .cart-container {
     display: flex;
     align-items: center;
+    border: 2px solid transparent; /* Borda invisível */    
     gap: 5px;
     padding: 8px 12px;
     background-color: #9370DB;
