@@ -123,12 +123,12 @@ body {
     gap: 5px;
     padding: 8px 12px;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #9370DB;
     color: white;
     transition: background-color 0.3s ease;
 }
 .login-container:hover, .cart-container:hover {
-    background-color: #0056b3;
+    background-color: #9370DB;
 }
 .login-container svg, .cart-container svg {
     width: 20px;
