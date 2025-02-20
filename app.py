@@ -142,7 +142,7 @@ def carrinho():
                 'nome': item.product.name,
                 'preco': item.product.price
             },
-            'quantidade': item.quantidade
+            'quantidade': item.quantity
         })
 
     return jsonify(itens_json)
