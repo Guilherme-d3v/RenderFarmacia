@@ -25,29 +25,14 @@ except Exception as e:
     print(f"Erro ao conectar ao banco de dados: {e}")
     raise  # Se houver erro, interrompe a execução
 
-from models import CartItem, Product, Category, Review # Move a importação para cá
+from models import CartItem, Product, Category, Review, User # Importa o User do models
 
 # Inicialização do Bcrypt para tratamento de senhas (hashing)
 bcrypt = Bcrypt(app)
 
-# Definição do modelo de Usuário, que representa uma tabela no banco de dados
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)  # Coluna 'id' como chave primária
-    email = db.Column(db.String(120), unique=True, nullable=False)  # Coluna 'email' única e obrigatória
-    password_hash = db.Column(db.String(60), nullable=False)  # Armazena o hash da senha
+# Rotas da aplicação
 
-    def __repr__(self):
-        # Representação do objeto para facilitar a depuração
-        return f"User('{self.email}')"
-
-    # Método para gerar e armazenar o hash da senha
-    def set_password(self, password):
-        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-
-    # Método para verificar se a senha informada corresponde ao hash armazenado
-    def check_password(self, password):
-        return bcrypt.check_password_hash(self.password_hash, password)
-
+# ... restante do seu código ...
 # Rotas da aplicação
 
 @app.route('/')
