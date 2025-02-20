@@ -147,6 +147,7 @@ def carrinho():
         })
 
     return jsonify(itens_json)
+
 @app.route('/remover_do_carrinho/<int:item_id>', methods=['DELETE'])
 def remover_do_carrinho(item_id):
     user_id = session.get('user_id')
