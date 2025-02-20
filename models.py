@@ -22,7 +22,7 @@ class CartItem(db.Model):
     __tablename__ = 'cart_items'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False) # Corrigido para 'products.id'
     quantity = db.Column(db.Integer, nullable=False, default=1)
 
     product = db.relationship('Product', backref='cart_items')
@@ -32,18 +32,20 @@ class CartItem(db.Model):
         return f"CartItem('{self.product_id}', '{self.user_id}', '{self.quantity}')"
 
 class Product(db.Model):
+    __tablename__ = 'products' # Corrigido para 'products'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(200))
     image = db.Column(db.String(100))
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id')) # Corrigido para 'categories.id'
     reviews = db.relationship('Review', lazy=True)
 
     def __repr__(self):
         return f'<Product {self.name}>'
 
 class Category(db.Model):
+    __tablename__ = 'categories' # Corrigido para 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     products = db.relationship('Product', backref='category', lazy=True)
@@ -55,7 +57,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(200))
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False) # Corrigido para 'products.id'
     product = db.relationship('Product', overlaps="reviews")
 
     def __repr__(self):
