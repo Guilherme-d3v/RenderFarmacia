@@ -1,7 +1,11 @@
 // Função para alternar a exibição do menu de navegação (navbar) em dispositivos móveis.
 function toggleNav() {
     const navLinks = document.querySelector('.nav-links');
-    navLinks.classList.toggle('active');
+    if (navLinks) {
+        navLinks.classList.toggle('active');
+    } else {
+        console.error('Elemento com classe "nav-links" não encontrado.');
+    }
 }
 
 // =========================
@@ -17,22 +21,26 @@ let currentIndex = 0;
 
 function updateCarousel() {
     const offset = -currentIndex * 100;
-    carouselInner.style.transform = `translateX(${offset}%)`;
-
+    if (carouselInner) {
+        carouselInner.style.transform = `translateX(${offset}%)`;
+    }
     indicators.forEach((indicator, index) => {
         indicator.classList.toggle('active', index === currentIndex);
     });
 }
 
-prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex > 0) ? currentIndex - 1 : carouselItems.length - 1;
-    updateCarousel();
-});
-
-nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex < carouselItems.length - 1) ? currentIndex + 1 : 0;
-    updateCarousel();
-});
+if (prevButton) {
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : carouselItems.length - 1;
+        updateCarousel();
+    });
+}
+if (nextButton) {
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex < carouselItems.length - 1) ? currentIndex + 1 : 0;
+        updateCarousel();
+    });
+}
 
 indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => {
@@ -52,13 +60,23 @@ setInterval(() => {
 
 // Função para abrir o carrinho (mostra o overlay)
 function abrirCarrinho() {
-    document.getElementById('cart-overlay').style.display = 'flex';
-    atualizarCarrinho();
+    const cartOverlay = document.getElementById('cart-overlay');
+    if (cartOverlay) {
+        cartOverlay.style.display = 'flex';
+        atualizarCarrinho();
+    } else {
+        console.error('Elemento com ID "cart-overlay" não encontrado.');
+    }
 }
 
 // Função para fechar o overlay do carrinho
 function fecharCarrinho() {
-    document.getElementById('cart-overlay').style.display = 'none';
+    const cartOverlay = document.getElementById('cart-overlay');
+    if (cartOverlay) {
+        cartOverlay.style.display = 'none';
+    } else {
+        console.error('Elemento com ID "cart-overlay" não encontrado.');
+    }
 }
 
 // Função para atualizar a exibição do carrinho
@@ -70,7 +88,9 @@ function atualizarCarrinho() {
             const cartTotal = document.getElementById('cart-total');
             const contador = document.getElementById('contador-carrinho');
 
-            cartItems.innerHTML = ''; // Limpa o conteúdo anterior
+            if (cartItems) {
+                cartItems.innerHTML = ''; // Limpa o conteúdo anterior
+            }
 
             let total = 0;
 
@@ -83,18 +103,26 @@ function atualizarCarrinho() {
                             <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
                             <button onclick="removerDoCarrinho(${item.id})">Remover</button>
                         `;
-                        cartItems.appendChild(itemElement);
+                        if (cartItems) {
+                            cartItems.appendChild(itemElement);
+                        }
                         total += item.produto.preco * item.quantidade;
                     } else {
                         console.error('Estrutura de dados inválida:', item);
                     }
                 });
             } else {
-                cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
+                if (cartItems) {
+                    cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
+                }
             }
 
-            cartTotal.textContent = total.toFixed(2);
-            contador.textContent = data ? data.reduce((acc, item) => acc + item.quantidade, 0) : 0;
+            if (cartTotal) {
+                cartTotal.textContent = total.toFixed(2);
+            }
+            if (contador) {
+                contador.textContent = data ? data.reduce((acc, item) => acc + item.quantidade, 0) : 0;
+            }
         })
         .catch(error => {
             console.error('Erro ao carregar dados do carrinho:', error);
@@ -146,9 +174,10 @@ function adicionarAoCarrinho(produto_id, quantidade) {
 }
 
 // =========================
-// Inicialização: Atualiza e carrega o carrinho ao carregar a página
+// Inicialização e Lógica do Login
 // =========================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializa os botões do carrinho
     const openCartButton = document.getElementById('open-cart-button');
     const closeCartButton = document.getElementById('close-cart-button');
 
@@ -158,80 +187,134 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeCartButton) {
         closeCartButton.addEventListener('click', fecharCarrinho);
     }
-
     atualizarCarrinho();
+
+    // Listener para abrir o modal de login
+    const loginContainer = document.querySelector('.login-container');
+    if (loginContainer) {
+        loginContainer.addEventListener('click', function(event) {
+            event.preventDefault();
+            exibirLogin();
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) {
+                loginModal.style.display = 'block';
+            } else {
+                console.error('Elemento com ID "login-modal" não encontrado.');
+            }
+        });
+    } else {
+        console.error('Elemento com classe "login-container" não encontrado.');
+    }
+
+    // Listener para fechar o modal de login
+    const closeLoginModal = document.getElementById('close-login-modal');
+    if (closeLoginModal) {
+        closeLoginModal.addEventListener('click', function() {
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) {
+                loginModal.style.display = 'none';
+            } else {
+                console.error('Elemento com ID "login-modal" não encontrado.');
+            }
+            console.log('Fechar clicado');
+        });
+    } else {
+        console.error('Elemento com ID "close-login-modal" não encontrado.');
+    }
+
+    // Listener para envio do formulário de login
+    const loginForm = document.getElementById("login-form");
+    if (loginForm) {
+        loginForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita o recarregamento da página
+
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    exibirUsuarioLogado(data.user.nome);
+                }
+            })
+            .catch(error => console.error("Erro ao fazer login:", error));
+        });
+    } else {
+        console.error('Elemento com ID "login-form" não encontrado.');
+    }
+
+    // Listener para logout
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            fetch('/logout')
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    exibirLogin();
+                    alert(data.message);
+                } else {
+                    alert('Erro ao fazer logout.');
+                }
+            })
+            .catch(error => {
+                alert('Erro ao fazer logout.');
+                console.error(error);
+            });
+        });
+    } else {
+        console.error('Elemento com ID "logout-button" não encontrado.');
+    }
 });
 
-// Lógica do Login
+// Lógica do Login - Funções reutilizáveis
 function exibirLogin() {
-    document.getElementById('login-modal').setAttribute('data-state', 'login');
-    document.querySelector('#login-modal [data-state="login"]').style.display = 'block';
-    document.querySelector('#login-modal [data-state="logged-in"]').style.display = 'none';
+    const loginModal = document.getElementById('login-modal');
+    if (!loginModal) {
+        console.error('Elemento com ID "login-modal" não encontrado.');
+        return;
+    }
+    const loginSection = loginModal.querySelector('[data-state="login"]');
+    const loggedInSection = loginModal.querySelector('[data-state="logged-in"]');
+    if (!loginSection || !loggedInSection) {
+        console.error('Elementos de estado do modal de login não encontrados.');
+        return;
+    }
+    loginModal.setAttribute('data-state', 'login');
+    loginSection.style.display = 'block';
+    loggedInSection.style.display = 'none';
 }
 
 function exibirUsuarioLogado(nome) {
-    document.getElementById('login-modal').setAttribute('data-state', 'logged-in');
-    document.querySelector('#login-modal [data-state="login"]').style.display = 'none';
-    document.querySelector('#login-modal [data-state="logged-in"]').style.display = 'block';
-    document.getElementById('user-nome').textContent = nome;
+    const loginModal = document.getElementById('login-modal');
+    if (!loginModal) {
+        console.error('Elemento com ID "login-modal" não encontrado.');
+        return;
+    }
+    const loginSection = loginModal.querySelector('[data-state="login"]');
+    const loggedInSection = loginModal.querySelector('[data-state="logged-in"]');
+    if (!loginSection || !loggedInSection) {
+        console.error('Elementos de estado do modal de login não encontrados.');
+        return;
+    }
+    loginModal.setAttribute('data-state', 'logged-in');
+    loginSection.style.display = 'none';
+    loggedInSection.style.display = 'block';
+    const userNomeElement = document.getElementById('user-nome');
+    if (userNomeElement) {
+        userNomeElement.textContent = nome;
+    }
     console.log(nome);
 }
-
-// Abrir modal de login
-document.querySelector('.login-container').addEventListener('click', function(event) {
-    event.preventDefault();
-    exibirLogin();
-    document.getElementById('login-modal').style.display = 'block';
-});
-
-// Fechar modal de login
-document.getElementById('close-login-modal').addEventListener('click', function() {
-    document.getElementById('login-modal').style.display = 'none';
-    console.log('Fechar clicado');
-});
-
-// Enviar formulário de login
-document.getElementById("login-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evita o recarregamento da página
-
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            email: email,
-            password: password
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error);
-        } else {
-            exibirUsuarioLogado(data.user.nome);
-        }
-    })
-    .catch(error => console.error("Erro ao fazer login:", error));
-});
-
-// Logout
-document.getElementById('logout-button').addEventListener('click', function() {
-    fetch('/logout')
-    .then(response => response.json())
-    .then(data => {
-        if (data.message) {
-            exibirLogin();
-            alert(data.message);
-        } else {
-            alert('Erro ao fazer logout.');
-        }
-    })
-    .catch(error => {
-        alert('Erro ao fazer logout.');
-        console.error(error);
-    });
-});

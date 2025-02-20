@@ -175,7 +175,7 @@
         </div>
     </div>
 <!-- Modal de login (inicialmente oculto) -->
-<div id="login-modal" style="display: none;" data-state="login">
+<div id="login-modal" style="display: none;">
     <div class="modal-content" data-state="login">
         <span id="close-login-modal-login">&times;</span>
         <h2>Login</h2>
@@ -185,7 +185,7 @@
             <button type="submit">Entrar</button>
         </form>
     </div>
-    <div class="modal-content" style="display: none;">
+    <div class="modal-content" data-state="logged-in" style="display: none;">
         <span id="close-login-modal-logged-in">&times;</span>
         <p>Olá, <span id="user-nome"></span>!</p>
         <button id="logout-button">Logout</button>
