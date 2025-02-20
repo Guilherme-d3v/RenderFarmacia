@@ -123,6 +123,11 @@ function removerDoCarrinho(item_id) {
 
 // Função para adicionar um item ao carrinho
 function adicionarAoCarrinho(produto_id, quantidade) {
+    if (!/^\d+$/.test(quantidade)) {
+        alert('Por favor, insira uma quantidade válida (número inteiro).');
+        return;
+    }
+
     fetch('/adicionar_ao_carrinho', {
         method: 'POST',
         headers: {

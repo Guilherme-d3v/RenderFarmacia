@@ -99,7 +99,12 @@ def adicionar_ao_carrinho():
         return jsonify({'error': 'Usuário não logado'}), 401
 
     product_id = request.form.get('produto_id')
-    quantidade = int(request.form.get('quantidade'))
+    quantidade = request.form.get('quantidade')
+
+    try:
+        quantidade = int(quantidade)
+    except ValueError:
+        return jsonify({'error': 'Quantidade inválida'}), 400
 
     produto = Product.query.get(product_id)
     if not produto:
@@ -111,7 +116,7 @@ def adicionar_ao_carrinho():
         if item_existente:
             item_existente.quantity += quantidade
         else:
-            novo_item = CartItem(user_id=user_id, product_id=product_id, quantity=quantidade) # Correção aqui
+            novo_item = CartItem(user_id=user_id, product_id=product_id, quantity=quantidade)
             db.session.add(novo_item)
 
         db.session.commit()
@@ -120,6 +125,7 @@ def adicionar_ao_carrinho():
         db.session.rollback()
         print(f"Erro ao adicionar ao carrinho: {e}")
         return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
+    
 @app.route('/carrinho')
 def carrinho():
     user_id = session.get('user_id')
