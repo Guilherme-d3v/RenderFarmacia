@@ -81,8 +81,8 @@ function atualizarCarrinho() {
                         const itemElement = document.createElement('div');
                         itemElement.classList.add('cart-item');
                         itemElement.innerHTML = `
-                            <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
-                            <button onclick="removerDoCarrinho(${item.id})">Remover</button>
+                            <span><span class="math-inline">\{item\.produto\.nome\} \- R</span> ${item.produto.preco.toFixed(2)} x <span class="math-inline">\{item\.quantidade\}</span\>
+<button onclick\="removerDoCarrinho\(</span>{item.id})">Remover</button>
                         `;
                         cartItems.appendChild(itemElement);
                         total += item.produto.preco * item.quantidade;
@@ -128,7 +128,7 @@ function adicionarAoCarrinho(produto_id, quantidade) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `produto_id=${produto_id}&quantidade=${quantidade}`
+        body: `produto_id=<span class="math-inline">\{produto\_id\}&quantidade\=</span>{quantidade}`
     })
     .then(response => response.json())
     .then(data => {
@@ -169,6 +169,7 @@ function exibirUsuarioLogado(nome) {
     document.querySelector('#login-modal [data-state="login"]').style.display = 'none';
     document.querySelector('#login-modal [data-state="logged-in"]').style.display = 'block';
     document.getElementById('user-nome').textContent = nome;
+    console.log(nome);
 }
 
 // Abrir modal de login
@@ -181,6 +182,7 @@ document.querySelector('.login-container').addEventListener('click', function(ev
 // Fechar modal de login
 document.getElementById('close-login-modal').addEventListener('click', function() {
     document.getElementById('login-modal').style.display = 'none';
+    console.log('Fechar clicado');
 });
 
 // Enviar formulário de login
@@ -195,7 +197,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `email=${email}&password=${password}`
+        body: `email=<span class="math-inline">\{email\}&password\=</span>{password}`
     })
     .then(response => response.json())
     .then(data => {
@@ -210,11 +212,12 @@ document.getElementById('login-form').addEventListener('submit', function(event)
 // Logout
 document.getElementById('logout-button').addEventListener('click', function() {
     fetch('/logout')
-        .then(response => {
-            if (response.ok) {
-                exibirLogin();
-            } else {
-                alert('Erro ao fazer logout.');
-            }
-        });
+    .then(response =>{
+        if (response.ok) {
+            exibirLogin();
+            alert(data.message);
+        } else {
+            alert('Erro ao fazer logout.');
+        }
+    });
 });
