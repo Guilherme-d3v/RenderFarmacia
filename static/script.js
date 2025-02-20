@@ -82,7 +82,7 @@ function atualizarCarrinho() {
                         itemElement.classList.add('cart-item');
                         itemElement.innerHTML = `
                             <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
-                            <button onclick="removerDoCarrinho(${item.produto.id})">Remover</button>
+                            <button onclick="removerDoCarrinho(${item.id})">Remover</button>
                         `;
                         cartItems.appendChild(itemElement);
                         total += item.produto.preco * item.quantidade;
@@ -103,8 +103,8 @@ function atualizarCarrinho() {
 }
 
 // Função para remover um item do carrinho com base no ID do produto
-function removerDoCarrinho(produto_id) {
-    fetch(`/remover_do_carrinho/${produto_id}`, {
+function removerDoCarrinho(item_id) {
+    fetch(`/remover_do_carrinho/${item_id}`, {
         method: 'DELETE'
     })
     .then(response => response.json())

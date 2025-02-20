@@ -146,6 +146,27 @@ def carrinho():
         })
 
     return jsonify(itens_json)
+@app.route('/remover_do_carrinho/<int:item_id>', methods=['DELETE'])
+def remover_do_carrinho(item_id):
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'Usuário não logado'}), 401
+
+    item = CartItem.query.get(item_id)
+    if not item:
+        return jsonify({'error': 'Item não encontrado'}), 404
+
+    if item.user_id != user_id:
+        return jsonify({'error': 'Item não pertence ao usuário'}), 403
+
+    try:
+        db.session.delete(item)
+        db.session.commit()
+        return jsonify({'message': 'Item removido do carrinho'}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(f"Erro ao remover do carrinho: {e}")
+        return jsonify({'error': 'Erro ao remover do carrinho'}), 500
 
 # Roda o aplicativo Flask em modo de debug, se este arquivo for executado diretamente
 if __name__ == '__main__':
