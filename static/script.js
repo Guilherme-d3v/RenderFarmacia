@@ -7,7 +7,6 @@ function toggleNav() {
 // =========================
 // Código do Carrossel
 // =========================
-
 const carouselInner = document.querySelector('.carousel-inner');
 const carouselItems = document.querySelectorAll('.carousel-item');
 const prevButton = document.querySelector('.carousel-button.prev');
@@ -81,8 +80,8 @@ function atualizarCarrinho() {
                         const itemElement = document.createElement('div');
                         itemElement.classList.add('cart-item');
                         itemElement.innerHTML = `
-                            <span><span class="math-inline">\{item\.produto\.nome\} \- R</span> ${item.produto.preco.toFixed(2)} x <span class="math-inline">\{item\.quantidade\}</span\>
-<button onclick\="removerDoCarrinho\(</span>{item.id})">Remover</button>
+                            <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
+                            <button onclick="removerDoCarrinho(${item.id})">Remover</button>
                         `;
                         cartItems.appendChild(itemElement);
                         total += item.produto.preco * item.quantidade;
@@ -133,7 +132,7 @@ function adicionarAoCarrinho(produto_id, quantidade) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `produto_id=<span class="math-inline">\{produto\_id\}&quantidade\=</span>{quantidade}`
+        body: `produto_id=${produto_id}&quantidade=${quantidade}`
     })
     .then(response => response.json())
     .then(data => {
@@ -163,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarCarrinho();
 });
 
+// Lógica do Login
 function exibirLogin() {
     document.getElementById('login-modal').setAttribute('data-state', 'login');
     document.querySelector('#login-modal [data-state="login"]').style.display = 'block';
@@ -205,7 +205,7 @@ document.getElementById("login-form").addEventListener("submit", function(event)
         body: new URLSearchParams({
             email: email,
             password: password
-        }) // Corrigido: agora envia corretamente
+        })
     })
     .then(response => response.json())
     .then(data => {
@@ -218,16 +218,20 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     .catch(error => console.error("Erro ao fazer login:", error));
 });
 
-
 // Logout
 document.getElementById('logout-button').addEventListener('click', function() {
     fetch('/logout')
-    .then(response =>{
-        if (response.ok) {
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
             exibirLogin();
             alert(data.message);
         } else {
             alert('Erro ao fazer logout.');
         }
+    })
+    .catch(error => {
+        alert('Erro ao fazer logout.');
+        console.error(error);
     });
 });
