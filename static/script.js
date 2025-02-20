@@ -206,21 +206,26 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Elemento com classe "login-container" não encontrado.');
     }
 
-    // Listener para fechar o modal de login
-    const closeLoginModal = document.getElementById('close-login-modal');
-    if (closeLoginModal) {
-        closeLoginModal.addEventListener('click', function() {
-            const loginModal = document.getElementById('login-modal');
-            if (loginModal) {
-                loginModal.style.display = 'none';
-            } else {
-                console.error('Elemento com ID "login-modal" não encontrado.');
-            }
-            console.log('Fechar clicado');
-        });
-    } else {
-        console.error('Elemento com ID "close-login-modal" não encontrado.');
-    }
+    // Fechar modal na tela de login
+const closeLogin = document.getElementById('close-login-modal-login');
+if (closeLogin) {
+    closeLogin.addEventListener('click', function() {
+        document.getElementById('login-modal').style.display = 'none';
+    });
+} else {
+    console.error('Elemento com ID "close-login-modal-login" não encontrado.');
+}
+
+// Fechar modal na tela de usuário logado
+const closeLoggedIn = document.getElementById('close-login-modal-logged-in');
+if (closeLoggedIn) {
+    closeLoggedIn.addEventListener('click', function() {
+        document.getElementById('login-modal').style.display = 'none';
+    });
+} else {
+    console.error('Elemento com ID "close-login-modal-logged-in" não encontrado.');
+}
+
 
     // Listener para envio do formulário de login
     const loginForm = document.getElementById("login-form");
