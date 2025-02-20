@@ -117,7 +117,7 @@ def adicionar_ao_carrinho():
         if item_existente:
             item_existente.quantidade += quantidade
         else:
-            novo_item = CartItem(user_id=user_id, product_id=product_id, quantidade=quantidade)
+            novo_item = CartItem(user_id=user_id, product_id=product_id, quantity=quantidade) # Correção aqui
             db.session.add(novo_item)
 
         db.session.commit()
@@ -126,7 +126,6 @@ def adicionar_ao_carrinho():
         db.session.rollback()
         print(f"Erro ao adicionar ao carrinho: {e}")
         return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
-
 @app.route('/carrinho')
 def carrinho():
     user_id = session.get('user_id')
