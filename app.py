@@ -66,7 +66,7 @@ def login():
 
         if user and user.check_password(password):
             session['user_id'] = user.id
-            return jsonify({'message': 'Login realizado com sucesso!', 'user': {'email': user.email}})
+            return jsonify({'message': 'Login realizado com sucesso!', 'user': {'email': user.email, 'nome': user.nome}})
         else:
             return jsonify({'error': 'Email ou senha incorretos.'}), 401
     else:
