@@ -87,10 +87,13 @@ def dashboard():
 
 @app.route('/logout')
 def logout():
-    # Rota para efetuar logout; remove o ID do usuário da sessão
+    # Remove o ID do usuário da sessão
     session.pop('user_id', None)
     flash('Logout realizado com sucesso!', 'success')
-    return redirect(url_for('login'))
+    
+    # Redirecionar para a página inicial (ou página desejada)
+    return redirect(url_for('index'))  # 'index' pode ser a sua página inicial ou qualquer outra
+
 
 
 # Rotas do carrinho de compras
