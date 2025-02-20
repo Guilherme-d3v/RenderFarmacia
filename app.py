@@ -140,7 +140,7 @@ def carrinho():
             'produto': {
                 'id': item.product.id,
                 'nome': item.product.name,
-                'preco': item.product.preco
+                'preco': item.product.price
             },
             'quantidade': item.quantidade
         })
