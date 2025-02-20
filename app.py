@@ -88,15 +88,11 @@ def dashboard():
     user = User.query.get(session['user_id'])
     return render_template('dashboard.html', user=user)
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])  # <-- Método POST definido
 def logout():
-    # Remove o ID do usuário da sessão
-    session.pop('user_id', None)
-    flash('Logout realizado com sucesso!', 'success')
-    
-    # Redirecionar para a página inicial (ou página desejada)
-    return redirect(url_for('index'))  # 'index' pode ser a sua página inicial ou qualquer outra
-
+    if 'user_id' in session:
+        session.pop('user_id', None)
+    return jsonify({'success': True, 'message': 'Logout realizado!'})
 
 
 # Rotas do carrinho de compras
