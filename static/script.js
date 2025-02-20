@@ -191,18 +191,21 @@ document.getElementById('close-login-modal').addEventListener('click', function(
 });
 
 // Enviar formulário de login
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita o recarregamento da página
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
 
     fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `email=<span class="math-inline">\{email\}&password\=</span>{password}`
+        body: new URLSearchParams({
+            email: email,
+            password: password
+        }) // Corrigido: agora envia corretamente
     })
     .then(response => response.json())
     .then(data => {
@@ -211,8 +214,10 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         } else {
             exibirUsuarioLogado(data.user.nome);
         }
-    });
+    })
+    .catch(error => console.error("Erro ao fazer login:", error));
 });
+
 
 // Logout
 document.getElementById('logout-button').addEventListener('click', function() {
