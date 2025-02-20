@@ -179,6 +179,13 @@ def remover_do_carrinho(item_id):
         db.session.rollback()
         print(f"Erro ao remover do carrinho: {e}")
         return jsonify({'error': 'Erro ao remover do carrinho'}), 500
+    
+@app.route('/verificar_sessao')
+def verificar_sessao():
+    if 'usuario' in session:  # Verifica se a sessão contém informações do usuário
+        return jsonify({'usuarioLogado': True})
+    else:
+        return jsonify({'usuarioLogado': False})
 
 # Roda o aplicativo Flask em modo de debug, se este arquivo for executado diretamente
 if __name__ == '__main__':

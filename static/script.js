@@ -189,14 +189,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     atualizarCarrinho();
 
+    // Função para verificar a sessão do usuário
+    function verificarSessao() {
+        return fetch('/verificar_sessao') // Supondo que você tenha uma rota no servidor para verificar a sessão
+            .then(response => response.json())
+            .then(data => data.usuarioLogado) // 'usuarioLogado' é verdadeiro ou falso dependendo do estado da sessão
+            .catch(error => {
+                console.error('Erro ao verificar a sessão:', error);
+                return false;
+            });
+    }
+
     // Listener para abrir o modal de login
     const loginContainer = document.querySelector('.login-container');
     if (loginContainer) {
-        loginContainer.addEventListener('click', function(event) {
+        loginContainer.addEventListener('click', async function(event) {
             event.preventDefault();
-            exibirLogin();
+
+            // Verifica se o usuário está logado
+            const usuarioLogado = await verificarSessao();
+
             const loginModal = document.getElementById('login-modal');
             if (loginModal) {
+                if (usuarioLogado) {
+                    exibirUsuarioLogado(); // Exibe o modal no estado de "logged-in"
+                } else {
+                    exibirLogin(); // Exibe o modal no estado de "login"
+                }
                 loginModal.style.display = 'block';
             } else {
                 console.error('Elemento com ID "login-modal" não encontrado.');
@@ -207,25 +226,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fechar modal na tela de login
-const closeLogin = document.getElementById('close-login-modal-login');
-if (closeLogin) {
-    closeLogin.addEventListener('click', function() {
-        document.getElementById('login-modal').style.display = 'none';
-    });
-} else {
-    console.error('Elemento com ID "close-login-modal-login" não encontrado.');
-}
+    const closeLogin = document.getElementById('close-login-modal-login');
+    if (closeLogin) {
+        closeLogin.addEventListener('click', function() {
+            document.getElementById('login-modal').style.display = 'none';
+        });
+    } else {
+        console.error('Elemento com ID "close-login-modal-login" não encontrado.');
+    }
 
-// Fechar modal na tela de usuário logado
-const closeLoggedIn = document.getElementById('close-login-modal-logged-in');
-if (closeLoggedIn) {
-    closeLoggedIn.addEventListener('click', function() {
-        document.getElementById('login-modal').style.display = 'none';
-    });
-} else {
-    console.error('Elemento com ID "close-login-modal-logged-in" não encontrado.');
-}
-
+    // Fechar modal na tela de usuário logado
+    const closeLoggedIn = document.getElementById('close-login-modal-logged-in');
+    if (closeLoggedIn) {
+        closeLoggedIn.addEventListener('click', function() {
+            document.getElementById('login-modal').style.display = 'none';
+        });
+    } else {
+        console.error('Elemento com ID "close-login-modal-logged-in" não encontrado.');
+    }
 
     // Listener para envio do formulário de login
     const loginForm = document.getElementById("login-form");
@@ -284,7 +302,7 @@ if (closeLoggedIn) {
     }
 });
 
-// Lógica do Login - Funções reutilizáveis
+// Funções reutilizáveis para exibir o modal em diferentes estados
 function exibirLogin() {
     const loginModal = document.getElementById('login-modal');
     if (!loginModal) {
@@ -323,3 +341,4 @@ function exibirUsuarioLogado(nome) {
     }
     console.log(nome);
 }
+
