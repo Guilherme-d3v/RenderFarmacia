@@ -19,7 +19,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialização do SQLAlchemy e verificação da versão do psycopg2 (driver do PostgreSQL)
 try:
-    db = SQLAlchemy(app)  # Inicializa o SQLAlchemy com o app Flask
+    db = SQLAlchemy()
+    db.init_app(app)  # Inicializa o SQLAlchemy com o app Flask
     print(f"psycopg2 version: {psycopg2.__version__}")
 except Exception as e:
     print(f"Erro ao conectar ao banco de dados: {e}")
