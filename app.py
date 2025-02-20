@@ -115,7 +115,7 @@ def adicionar_ao_carrinho():
 
     try:
         if item_existente:
-            item_existente.quantidade += quantidade
+            item_existente.quantity += quantidade
         else:
             novo_item = CartItem(user_id=user_id, product_id=product_id, quantity=quantidade) # Correção aqui
             db.session.add(novo_item)
