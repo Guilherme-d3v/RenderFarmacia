@@ -29,7 +29,7 @@ class Product(db.Model):
     description = db.Column(db.String(200))
     image = db.Column(db.String(100))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    reviews = db.relationship('Review', backref='product', lazy=True)
+    reviews = db.relationship('Review', lazy=True) # Linha modificada
 
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -47,7 +47,7 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(200))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    product = db.relationship('Product', backref='reviews') # Adicionado relacionamento
+    product = db.relationship('Product', backref='reviews')
 
     def __repr__(self):
         return f'<Review {self.id}>'
