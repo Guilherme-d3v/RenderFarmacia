@@ -146,7 +146,7 @@ def adicionar_ao_carrinho():
         db.session.rollback()
         print(f"Erro ao adicionar ao carrinho: {e}")
         return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
-    
+
 @app.route('/carrinho')
 def carrinho():
     user_id = session.get('user_id')
@@ -167,6 +167,7 @@ def carrinho():
         })
 
     return jsonify(itens_json)
+
 # Roda o aplicativo Flask em modo de debug, se este arquivo for executado diretamente
 if __name__ == '__main__':
     app.run(debug=True)
