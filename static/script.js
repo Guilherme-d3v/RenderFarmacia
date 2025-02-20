@@ -157,3 +157,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     atualizarCarrinho();
 });
+
+// Abrir modal de login
+document.querySelector('.login-container').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.getElementById('login-modal').style.display = 'block';
+});
+
+// Fechar modal de login
+document.getElementById('close-login-modal').addEventListener('click', function() {
+    document.getElementById('login-modal').style.display = 'none';
+});
+
+// Enviar formulário de login
+document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `email=<span class="math-inline">\{email\}&password\=</span>{password}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            document.getElementById('login-modal').style.display = 'none'; // Fecha o modal
+            alert(data.message); // Exibe mensagem de sucesso
+            // Atualizar a interface do usuário (exibir dados do usuário, etc.)
+        }
+    });
+});

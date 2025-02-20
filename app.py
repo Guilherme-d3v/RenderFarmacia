@@ -57,26 +57,20 @@ def register():
     # Se for uma requisição GET, renderiza o formulário de cadastro
     return render_template('register.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    # Rota para login de usuário; aceita GET e POST
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-
-        # Busca o usuário pelo e-mail informado
         user = User.query.filter_by(email=email).first()
 
-        # Se o usuário existe e a senha está correta, inicia a sessão
         if user and user.check_password(password):
             session['user_id'] = user.id
-            flash('Login realizado com sucesso!', 'success')
-            return redirect(url_for('dashboard'))
+            return jsonify({'message': 'Login realizado com sucesso!', 'user': {'email': user.email}})
         else:
-            flash('Email ou senha incorretos.', 'danger')
-
-    # Renderiza a página de login
-    return render_template('login.html')
+            return jsonify({'error': 'Email ou senha incorretos.'}), 401
+    else:
+        return jsonify({'error': 'Método não permitido'}), 405
 
 @app.route('/dashboard')
 def dashboard():
