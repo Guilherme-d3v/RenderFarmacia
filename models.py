@@ -47,7 +47,7 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(200))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    product = db.relationship('Product', backref='reviews')
+    product = db.relationship('Product')
 
     def __repr__(self):
         return f'<Review {self.id}>'
