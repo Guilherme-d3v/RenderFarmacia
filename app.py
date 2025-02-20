@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import psycopg2
-from models import CartItem, Product, Category, Review
 
 # Inicialização do aplicativo Flask
 app = Flask(__name__)
@@ -25,6 +24,8 @@ try:
 except Exception as e:
     print(f"Erro ao conectar ao banco de dados: {e}")
     raise  # Se houver erro, interrompe a execução
+
+from models import CartItem, Product, Category, Review # Move a importação para cá
 
 # Inicialização do Bcrypt para tratamento de senhas (hashing)
 bcrypt = Bcrypt(app)

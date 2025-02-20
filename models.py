@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from app import db  # Importa a instância 'db' do arquivo app.py
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -47,7 +45,7 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(200))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    product = db.relationship('Product', overlaps="reviews") # Adicionado overlaps="reviews"
+    product = db.relationship('Product', overlaps="reviews")
 
     def __repr__(self):
         return f'<Review {self.id}>'
