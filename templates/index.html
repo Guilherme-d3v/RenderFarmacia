@@ -166,15 +166,16 @@
 
     
     
-    <!-- Overlay do carrinho de compras (inicialmente oculto) -->
-    <div id="cart-overlay" style="display: none;">
-        <div class="cart-content">
-            <h2>Carrinho de compras</h2>
-            <div id="cart-items"></div>
-            <button id="close-cart-button" onclick="fecharCarrinho()">Fechar</button>
-        </div>
+  <!-- Overlay do carrinho -->
+  <div id="cart-overlay" style="display: none;">
+    <div class="cart-content">
+        <h2>Carrinho de compras</h2>
+        <div id="cart-items"></div>
+        <button id="close-cart-button" onclick="fecharCarrinho()">Fechar</button>
     </div>
-<!-- Modal de login (inicialmente oculto) -->
+</div>
+
+<!-- Modal de Login (POSIÇÃO CORRIGIDA: antes do script) -->
 <div id="login-modal" style="display: none;">
     <div class="modal-content" data-state="login">
         <span id="close-login-modal-login">&times;</span>
@@ -185,6 +186,7 @@
             <button type="submit">Entrar</button>
         </form>
     </div>
+    
     <div class="modal-content" data-state="logged-in" style="display: none;">
         <span id="close-login-modal-logged-in">&times;</span>
         <p>Olá, <span id="user-nome"></span>!</p>
@@ -192,7 +194,7 @@
     </div>
 </div>
 
-    <!-- Importação do arquivo JavaScript -->
-    <script src="/static/script.js"></script>
+<!-- Script JS -->
+<script src="/static/script.js"></script>
 </body>
 </html>
