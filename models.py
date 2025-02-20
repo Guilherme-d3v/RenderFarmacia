@@ -9,6 +9,7 @@ class User(db.Model):
         return f"User('{self.email}')"
 
 class CartItem(db.Model):
+    __tablename__ = 'cart_items'  # Especifica o nome da tabela
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
