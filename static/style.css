@@ -479,6 +479,104 @@ body {
 #close-login-modal {
     float: right;
     font-size: 28px;
-    font-weight: bold;
+    font-weight: bold;/* ======================
+    Modais (Login e Carrinho)
+    ====================== */
+ #login-modal,
+ #cart-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 0, 0, 0.5);
+     display: none;
+     justify-content: center;
+     align-items: center;
+     z-index: 1001;
+ }
+ 
+ /* Conteúdo do Modal */
+ .modal-content {
+     background: white;
+     border-radius: 12px;
+     padding: 2rem;
+     width: 90%;
+     max-width: 400px;
+     box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+     position: relative;
+ }
+ 
+ /* Estados do Modal de Login */
+ .modal-content[data-state="login"] {
+     display: block;
+ }
+ 
+ .modal-content[data-state="logged-in"] {
+     display: none; /* Inicialmente oculto */
+ }
+ 
+ /* Botões de fechar */
+ #close-login-modal-login,
+ #close-login-modal-logged-in,
+ #close-cart-button {
+     position: absolute;
+     top: 1rem;
+     right: 1rem;
+     cursor: pointer;
+     font-size: 1.5rem;
+     color: #666;
+     transition: color 0.3s ease;
+ }
+ 
+ #close-login-modal-login:hover,
+ #close-login-modal-logged-in:hover {
+     color: #333;
+ }
+ 
+ /* Formulário de Login */
+ #login-form input {
+     width: 100%;
+     padding: 12px;
+     margin: 8px 0;
+     border: 1px solid #ddd;
+     border-radius: 8px;
+     font-size: 1rem;
+ }
+ 
+ #login-form button {
+     width: 100%;
+     padding: 12px;
+     background: #9370DB;
+     color: white;
+     border: none;
+     border-radius: 8px;
+     cursor: pointer;
+     margin-top: 1rem;
+ }
+ 
+ /* Estilo do Carrinho */
+ #cart-items {
+     max-height: 60vh;
+     overflow-y: auto;
+     margin: 1rem 0;
+ }
+ 
+ #cart-items .cart-item {
+     display: flex;
+     justify-content: space-between;
+     padding: 10px;
+     border-bottom: 1px solid #eee;
+ }
+ 
+ #logout-button {
+     background: #dc3545;
+     color: white;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     margin-top: 1rem;
+ }
     cursor: pointer;
 }
