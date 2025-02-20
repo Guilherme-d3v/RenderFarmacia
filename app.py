@@ -63,6 +63,8 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
+        print(f"Tentativa de login com: Email={email}, Senha={password}")
+
 
         if user and user.check_password(password):
             session['user_id'] = user.id
@@ -126,27 +128,35 @@ def adicionar_ao_carrinho():
         print(f"Erro ao adicionar ao carrinho: {e}")
         return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
     
-@app.route('/carrinho')
+@app.route('/carrinho', methods=['GET'])
 def carrinho():
-    user_id = session.get('user_id')
-    if not user_id:
-        return jsonify({'error': 'Usuário não logado'}), 401
+    try:
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'Usuário não autenticado'}), 401
 
-    itens_no_carrinho = CartItem.query.filter_by(user_id=user_id).all()
+        # Busca os itens do carrinho do usuário autenticado
+        itens_no_carrinho = CartItem.query.filter_by(user_id=user_id).all()
 
-    itens_json = []
-    for item in itens_no_carrinho:
-        itens_json.append({
-            'id': item.id,  # Adicione esta linha
-            'produto': {
-                'id': item.product.id,
-                'nome': item.product.name,
-                'preco': item.product.price
-            },
-            'quantidade': item.quantity
-        })
+        # Converte os itens para JSON
+        itens_json = [
+            {
+                'id': item.id,
+                'produto': {
+                    'id': item.product.id,
+                    'nome': item.product.name,
+                    'preco': float(item.product.price)  # Garante que seja um número serializável
+                },
+                'quantidade': item.quantity
+            }
+            for item in itens_no_carrinho
+        ]
 
-    return jsonify(itens_json)
+        return jsonify(itens_json)
+
+    except Exception as e:
+        return jsonify({'error': 'Erro interno no servidor', 'details': str(e)}), 500
+
 
 @app.route('/remover_do_carrinho/<int:item_id>', methods=['DELETE'])
 def remover_do_carrinho(item_id):
