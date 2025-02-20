@@ -78,36 +78,45 @@ function fecharCarrinho() {
 }
 
 function atualizarCarrinho() {
-    fetch('/carrinho')
-        .then(response => response.json())
+    fetch('/carrinho', { credentials: 'include' }) // Adicione credentials
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             const cartItems = document.getElementById('cart-items');
             const cartTotal = document.getElementById('cart-total');
             const contador = document.getElementById('contador-carrinho');
 
-            if (cartItems) cartItems.innerHTML = '';
-
+            cartItems.innerHTML = '';
             let total = 0;
 
-            if (data && data.length > 0) {
+            if (data.error) {
+                cartItems.innerHTML = `<p>${data.error}</p>`;
+            } else if (data.length > 0) {
                 data.forEach(item => {
-                    if (item.produto) {
-                        const itemElement = document.createElement('div');
-                        itemElement.classList.add('cart-item');
-                        itemElement.innerHTML = `
-                            <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
-                            <button onclick="removerDoCarrinho(${item.id})">Remover</button>
-                        `;
-                        if (cartItems) cartItems.appendChild(itemElement);
-                        total += item.produto.preco * item.quantidade;
-                    }
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
+                        <button onclick="removerDoCarrinho(${item.id})">Remover</button>
+                    `;
+                    cartItems.appendChild(itemElement);
+                    total += item.produto.preco * item.quantidade;
                 });
             } else {
-                if (cartItems) cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
+                cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
             }
 
             if (cartTotal) cartTotal.textContent = total.toFixed(2);
-            if (contador) contador.textContent = data ? data.reduce((acc, item) => acc + item.quantidade, 0) : 0;
+            if (contador) contador.textContent = data.length ? data.reduce((acc, item) => acc + item.quantidade, 0) : 0;
+        })
+        .catch(error => {
+            console.error('Erro ao carregar carrinho:', error);
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = `<p>Erro ao carregar carrinho: ${error.message}</p>`;
         });
 }
 
@@ -119,16 +128,24 @@ function removerDoCarrinho(item_id) {
 
 function adicionarAoCarrinho(produto_id, quantidade) {
     if (!/^\d+$/.test(quantidade)) {
-        alert('Por favor, insira uma quantidade válida (número inteiro).');
+        alert('Quantidade inválida!');
         return;
     }
 
     fetch('/adicionar_ao_carrinho', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        credentials: 'include', // Adicione esta linha
         body: `produto_id=${produto_id}&quantidade=${quantidade}`
-    }).then(response => response.json())
-    .then(data => atualizarCarrinho());
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            atualizarCarrinho();
+        }
+    });
 }
 
 // =========================
