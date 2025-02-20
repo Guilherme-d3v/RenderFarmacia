@@ -137,6 +137,7 @@ def carrinho():
     itens_json = []
     for item in itens_no_carrinho:
         itens_json.append({
+            'id': item.id,  # Adicione esta linha
             'produto': {
                 'id': item.product.id,
                 'nome': item.product.name,
