@@ -158,9 +158,23 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarCarrinho();
 });
 
+function exibirLogin() {
+    document.getElementById('login-modal').setAttribute('data-state', 'login');
+    document.querySelector('#login-modal [data-state="login"]').style.display = 'block';
+    document.querySelector('#login-modal [data-state="logged-in"]').style.display = 'none';
+}
+
+function exibirUsuarioLogado(nome) {
+    document.getElementById('login-modal').setAttribute('data-state', 'logged-in');
+    document.querySelector('#login-modal [data-state="login"]').style.display = 'none';
+    document.querySelector('#login-modal [data-state="logged-in"]').style.display = 'block';
+    document.getElementById('user-nome').textContent = nome;
+}
+
 // Abrir modal de login
 document.querySelector('.login-container').addEventListener('click', function(event) {
     event.preventDefault();
+    exibirLogin();
     document.getElementById('login-modal').style.display = 'block';
 });
 
@@ -181,16 +195,26 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `email=<span class="math-inline">\{email\}&password\=</span>{password}`
+        body: `email=${email}&password=${password}`
     })
     .then(response => response.json())
     .then(data => {
         if (data.error) {
             alert(data.error);
         } else {
-            document.getElementById('login-modal').style.display = 'none'; // Fecha o modal
-            alert(data.message); // Exibe mensagem de sucesso
-            // Atualizar a interface do usuário (exibir dados do usuário, etc.)
+            exibirUsuarioLogado(data.user.nome);
         }
     });
+});
+
+// Logout
+document.getElementById('logout-button').addEventListener('click', function() {
+    fetch('/logout')
+        .then(response => {
+            if (response.ok) {
+                exibirLogin();
+            } else {
+                alert('Erro ao fazer logout.');
+            }
+        });
 });
