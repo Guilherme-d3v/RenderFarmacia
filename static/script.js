@@ -77,14 +77,18 @@ function atualizarCarrinho() {
 
             if (data && data.length > 0) {
                 data.forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('cart-item');
-                    itemElement.innerHTML = `
-                        <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
-                        <button onclick="removerDoCarrinho(${item.produto.id})">Remover</button> 
-                    `;
-                    cartItems.appendChild(itemElement);
-                    total += item.produto.preco * item.quantidade;
+                    if (item.produto) {
+                        const itemElement = document.createElement('div');
+                        itemElement.classList.add('cart-item');
+                        itemElement.innerHTML = `
+                            <span>${item.produto.nome} - R$ ${item.produto.preco.toFixed(2)} x ${item.quantidade}</span>
+                            <button onclick="removerDoCarrinho(${item.produto.id})">Remover</button>
+                        `;
+                        cartItems.appendChild(itemElement);
+                        total += item.produto.preco * item.quantidade;
+                    } else {
+                        console.error('Estrutura de dados inválida:', item);
+                    }
                 });
             } else {
                 cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
@@ -124,7 +128,7 @@ function adicionarAoCarrinho(produto_id, quantidade) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `produto_id=<span class="math-inline">\{produto\_id\}&quantidade\=</span>{quantidade}`
+        body: `produto_id=${produto_id}&quantidade=${quantidade}`
     })
     .then(response => response.json())
     .then(data => {
@@ -136,7 +140,6 @@ function adicionarAoCarrinho(produto_id, quantidade) {
         }
     });
 }
-
 
 // =========================
 // Inicialização: Atualiza e carrega o carrinho ao carregar a página
