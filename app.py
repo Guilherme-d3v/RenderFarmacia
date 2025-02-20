@@ -3,10 +3,11 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import psycopg2
-from models import CartItem,Product, Category, Review# Importa o modelo de item de carrinho definido em outro arquivo (models.py)
+from models import CartItem, Product, Category, Review
 
 # Inicialização do aplicativo Flask
 app = Flask(__name__)
+
 # Define a chave secreta do Flask, usada para sessões e criptografia; ela pode vir de uma variável de ambiente
 app.secret_key = os.environ.get("SECRET_KEY")
 
@@ -18,7 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialização do SQLAlchemy e verificação da versão do psycopg2 (driver do PostgreSQL)
 try:
-    db = SQLAlchemy(app)
+    db = SQLAlchemy(app)  # Inicializa o SQLAlchemy com o app Flask
     print(f"psycopg2 version: {psycopg2.__version__}")
 except Exception as e:
     print(f"Erro ao conectar ao banco de dados: {e}")

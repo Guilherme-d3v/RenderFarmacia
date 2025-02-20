@@ -1,6 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy()
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password_hash = db.Column(db.String(60), nullable=False)
+
+    def __repr__(self):
+        return f"User('{self.email}')"
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,10 +26,10 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    description = db.Column(db.String(200)) # Campo para descrição do produto
-    image = db.Column(db.String(100)) # Campo para imagem do produto
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id')) # Chave estrangeira para categoria
-    reviews = db.relationship('Review', backref='product', lazy=True) # Relacionamento com avaliações
+    description = db.Column(db.String(200))
+    image = db.Column(db.String(100))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    reviews = db.relationship('Review', backref='product', lazy=True)
 
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -29,7 +37,7 @@ class Product(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    products = db.relationship('Product', backref='category', lazy=True) # Relacionamento com produtos
+    products = db.relationship('Product', backref='category', lazy=True)
 
     def __repr__(self):
         return f'<Category {self.name}>'
@@ -39,11 +47,7 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(200))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(60), nullable=False)
+    product = db.relationship('Product', backref='reviews') # Adicionado relacionamento
 
     def __repr__(self):
-        return f"User('{self.email}')"
+        return f'<Review {self.id}>'
