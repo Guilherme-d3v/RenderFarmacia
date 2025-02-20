@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
 import psycopg2
 
 # Inicialização do aplicativo Flask
@@ -27,12 +26,6 @@ except Exception as e:
 
 from models import CartItem, Product, Category, Review, User # Importa o User do models
 
-# Inicialização do Bcrypt para tratamento de senhas (hashing)
-bcrypt = Bcrypt(app)
-
-# Rotas da aplicação
-
-# ... restante do seu código ...
 # Rotas da aplicação
 
 @app.route('/')
