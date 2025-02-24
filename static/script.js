@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const closeRegisterButton = document.getElementById("close-register-modal");
 
     openRegisterButton.addEventListener("click", function() {
-        loginModal.style.display = "none";
+        closeModal(login-modal); // Fechamos o modal de login
         registerModal.style.display = "flex"; // Mudamos para "flex" para garantir a exibição correta
     });
 
