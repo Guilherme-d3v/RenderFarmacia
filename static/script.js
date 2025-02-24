@@ -243,13 +243,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // =========================
 // Lógica de Cadastro (modal cadastro)
-document.getElementById("open-register-modal").addEventListener("click", function() {
-    document.getElementById("login-modal").style.display = "none";
-    document.getElementById("register-modal").style.display = "block";
-});
+document.addEventListener("DOMContentLoaded", function() {
+    const loginModal = document.getElementById("login-modal");
+    const registerModal = document.getElementById("register-modal");
 
-document.getElementById("close-register-modal").addEventListener("click", function() {
-    document.getElementById("register-modal").style.display = "none";
-    document.getElementById("login-modal").style.display = "block";
+    const openRegisterButton = document.getElementById("open-register-modal");
+    const closeRegisterButton = document.getElementById("close-register-modal");
+
+    openRegisterButton.addEventListener("click", function() {
+        loginModal.style.display = "none";
+        registerModal.style.display = "flex"; // Mudamos para "flex" para garantir a exibição correta
+    });
+
+    closeRegisterButton.addEventListener("click", function() {
+        registerModal.style.display = "none";
+        loginModal.style.display = "flex"; // Mudamos para "flex" para garantir a exibição correta
+    });
 });
 
