@@ -517,7 +517,9 @@ body {
      width: 90%;
      max-width: 400px;
      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-     position: relative;
+     position: fixed;
+     justify-content: center!important;
+    align-items: center!important;
  }
  
  /* Estados do Modal de Login */
