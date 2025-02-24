@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
 document.getElementById("register-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const nome = document.getElementById("register-nome").value;
+    const name = document.getElementById("register-nome").value;
     const email = document.getElementById("register-email").value;
     const password = document.getElementById("register-password").value;
 
