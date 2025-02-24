@@ -261,3 +261,25 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.getElementById("register-form").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("register-nome").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+
+    const response = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, password })  // Agora enviamos `nome` também!
+    });
+
+    const data = await response.json();
+    alert(data.message);  // Mostra a resposta do back-end
+
+    if (data.success) {
+        document.getElementById("register-modal").style.display = "none";
+    }
+});
+
+

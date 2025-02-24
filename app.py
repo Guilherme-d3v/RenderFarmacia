@@ -38,29 +38,32 @@ def index():
     # Rota principal que renderiza a página inicial
     return render_template('index.html')
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['POST'])
 def register():
-    # Rota para cadastro de usuários; aceita requisições GET e POST
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+    try:
+        data = request.json  # Recebe os dados em JSON do front-end
+        nome = data.get("nome")  # Pega o nome do usuário
+        email = data.get("email")
+        password = data.get("password")
 
-        # Verifica se já existe um usuário com o mesmo e-mail
+        if not nome or not email or not password:
+            return jsonify({"message": "Preencha todos os campos!", "success": False}), 400
+
+        # Verifica se o e-mail já está cadastrado
         if User.query.filter_by(email=email).first():
-            flash('Email já cadastrado!', 'danger')
-            return redirect(url_for('register'))
+            return jsonify({"message": "Email já cadastrado!", "success": False}), 400
 
-        # Cria um novo objeto usuário e define o hash da senha
-        new_user = User(email=email)
-        new_user.set_password(password)
+        # Criar usuário e definir a senha usando o método set_password()
+        new_user = User(nome=nome, email=email)  # Agora inclui nome!
+        new_user.set_password(password)  # Hash da senha
+
         db.session.add(new_user)
-        db.session.commit()  # Salva o novo usuário no banco de dados
+        db.session.commit()  # Salva o usuário no banco de dados
 
-        flash('Cadastro realizado com sucesso! Faça login.', 'success')
-        return redirect(url_for('login'))
+        return jsonify({"message": "Cadastro realizado com sucesso!", "success": True}), 201
 
-    # Se for uma requisição GET, renderiza o formulário de cadastro
-    return render_template('register.html')
+    except Exception as e:
+        return jsonify({"message": f"Erro ao cadastrar: {str(e)}", "success": False}), 500
 
 # ====== PARTE CORRIGIDA ======
 @app.route('/login', methods=['POST'])
