@@ -207,12 +207,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fechar modal
-    document.querySelectorAll('[id^="close-login-modal"]').forEach(button => {
-        button.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-    });
+   // Função para fechar o modal
+   function closeModal() {
+    loginModal.classList.add('hide-modal');
+    loginModal.classList.remove('show-modal');
+}
+
+// Fecha o modal (login)
+const closeLoginModalLogin = document.getElementById('close-login-modal-login');
+if (closeLoginModalLogin) {
+    closeLoginModalLogin.addEventListener('click', closeModal);
+}
+
+// Fecha o modal (logged-in)
+const closeLoginModalLoggedIn = document.getElementById('close-login-modal-logged-in');
+if (closeLoginModalLoggedIn) {
+    closeLoginModalLoggedIn.addEventListener('click', closeModal);
+}
+
+// Fecha o modal se clicar fora do conteúdo
+window.addEventListener('click', function(event) {
+    if (event.target === loginModal) {
+        closeModal();
+    }
+});
 
     // Login
     const loginForm = document.getElementById("login-form");
