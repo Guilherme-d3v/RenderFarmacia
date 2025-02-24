@@ -173,23 +173,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Abrir modal com verificação
-    if (loginContainer) {
+    if (loginContainer && loginModal) {
         loginContainer.addEventListener('click', async (e) => {
             e.preventDefault();
             const sessao = await verificarSessao();
-            
+    
             if (sessao.usuarioLogado) {
-                const userResponse = await fetch('/obter_usuario', { credentials: 'include' });
-                const userData = await userResponse.json();
-                document.getElementById('user-nome').textContent = userData.nome;
-                document.querySelector('[data-state="logged-in"]').style.display = 'block';
-                document.querySelector('[data-state="login"]').style.display = 'none';
+                try {
+                    const userResponse = await fetch('/obter_usuario', { credentials: 'include' });
+                    if (!userResponse.ok) {
+                        throw new Error('Erro ao obter usuário');
+                    }
+                    const userData = await userResponse.json();
+                    if (document.getElementById('user-nome')){
+                        document.getElementById('user-nome').textContent = userData.nome;
+                    }
+                    document.querySelector('[data-state="logged-in"]').classList.add('show-modal');
+                    document.querySelector('[data-state="logged-in"]').classList.remove('hide-modal');
+                    document.querySelector('[data-state="login"]').classList.add('hide-modal');
+                    document.querySelector('[data-state="login"]').classList.remove('show-modal');
+                } catch (error) {
+                    console.error('Erro:', error);
+                    // Mostrar mensagem de erro ao usuário, se necessário
+                }
             } else {
-                document.querySelector('[data-state="login"]').style.display = 'block';
-                document.querySelector('[data-state="logged-in"]').style.display = 'none';
+                document.querySelector('[data-state="login"]').classList.add('show-modal');
+                document.querySelector('[data-state="login"]').classList.remove('hide-modal');
+                document.querySelector('[data-state="logged-in"]').classList.add('hide-modal');
+                document.querySelector('[data-state="logged-in"]').classList.remove('show-modal');
             }
-            loginModal.style.display = 'block';
+            loginModal.classList.add('show-modal');
+            loginModal.classList.remove('hide-modal');
         });
     }
 
