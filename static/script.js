@@ -265,7 +265,7 @@ window.addEventListener('click', function(event) {
         logoutButton.addEventListener('click', async () => {
             try {
                 await fetch('/logout', { method: 'POST', credentials: 'include' });
-                loginModal.style.display = 'none';
+                closeModal(); // Chama a função para fechar o modal
             } catch (error) {
                 console.error('Erro no logout:', error);
             }
