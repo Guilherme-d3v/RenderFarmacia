@@ -361,7 +361,7 @@ body {
 }
 
 .cart-content {
-    background-color: purple; /* fundo alterado para roxo */
+    background-color: #9370DB; /* fundo alterado para roxo */
     padding: 20px;
     border-radius: 10px;
     width: 400px;
@@ -414,7 +414,7 @@ body {
 }
 
 .modal-content {
-    background-color: purple; /* fundo alterado para roxo */
+    background-color: #9370DB; /* fundo alterado para roxo */
     padding: 20px;
     border-radius: 8px;
     width: 80%;
@@ -436,7 +436,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: purple; /* fundo alterado para roxo */
+    background: #9370DB; /* fundo alterado para roxo */
     width: 400px;
     height: auto;
     padding: 30px;
@@ -450,7 +450,7 @@ body {
    ========================= */
 /* Caso haja formulários fora dos modais, este estilo aplica fundo roxo */
 form {
-    background-color: purple;
+    background-color: #9370DB;
     padding: 20px;
     border-radius: 8px;
 }
@@ -460,7 +460,7 @@ form button,
 .modal-content button,
 .cart-content button,
 #register-modal button {
-    background-color: orange;
+    background-color: #d4b77f;
     border: none;
     color: white;
     padding: 10px 20px;
