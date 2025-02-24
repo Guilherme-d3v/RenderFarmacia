@@ -283,13 +283,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const closeRegisterButton = document.getElementById("close-register-modal");
 
     openRegisterButton.addEventListener("click", function() {
-        closeModal(); // Fechamos o modal de login
-        registerModal.style.display = "flex"; // Mudamos para "flex" para garantir a exibição correta
+        loginModal.classList.add("hide-modal");
+        loginModal.classList.remove("show-modal");
+        registerModal.classList.add("show-modal");
+        registerModal.classList.remove("hide-modal");
     });
 
     closeRegisterButton.addEventListener("click", function() {
-        registerModal.style.display = "none";
-        loginModal.style.display = "flex"; // Mudamos para "flex" para garantir a exibição correta
+        registerModal.classList.add("hide-modal");
+        registerModal.classList.remove("show-modal");
+        loginModal.classList.add("show-modal");
+        loginModal.classList.remove("hide-modal");
     });
 });
 
