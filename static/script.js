@@ -251,7 +251,7 @@ window.addEventListener('click', function(event) {
                 if (data.error) {
                     alert(data.error);
                 } else {
-                    loginModal.style.display = 'none';
+                    closeModal(); // Chama a função para fechar o modal
                 }
             } catch (error) {
                 console.error("Erro no login:", error);
