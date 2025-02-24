@@ -467,7 +467,18 @@ body {
     align-items: center;
     z-index: 1001; /* Garante que o modal de login fique acima do modal do carrinho */
 }
-
+.modal-overlay {
+    position: fixed; /* Fixa o modal na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    display: flex; /* Usa flexbox para centralizar */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 1000; /* Garante que o modal fique acima de outros elementos */
+  }
 .modal-content {
     background-color: white;
     padding: 20px;
