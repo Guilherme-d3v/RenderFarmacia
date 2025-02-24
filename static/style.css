@@ -485,6 +485,8 @@ body {
     border-radius: 8px;
     width: 80%;
     max-width: 400px;
+    justify-content: center!important;
+    align-items: center!important;
 }
 
 #close-login-modal {
