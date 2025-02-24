@@ -613,4 +613,10 @@ body {
     z-index: 1000;
 }
 
+.show-modal {
+    display: flex !important; /* Use !important com cautela, mas aqui é útil para sobrepor estilos inline */
+}
 
+.hide-modal {
+    display: none !important;
+}
