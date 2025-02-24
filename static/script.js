@@ -296,7 +296,6 @@ document.addEventListener("DOMContentLoaded", function() {
         loginModal.classList.remove("hide-modal");
     });
 });
-
 document.getElementById("register-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -307,14 +306,16 @@ document.getElementById("register-form").addEventListener("submit", async functi
     const response = await fetch("/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, password })  // Agora enviamos `nome` também!
+        body: JSON.stringify({ nome, email, password })
     });
 
     const data = await response.json();
-    alert(data.message);  // Mostra a resposta do back-end
+    alert(data.message);
 
     if (data.success) {
-        document.getElementById("register-modal").style.display = "none";
+        const registerModal = document.getElementById("register-modal");
+        registerModal.classList.add("hide-modal");
+        registerModal.classList.remove("show-modal");
     }
 });
 
