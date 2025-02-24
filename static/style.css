@@ -22,7 +22,7 @@ body {
 }
 
 /* =========================
-   Cabeçalho (Header)
+   Componentes do Cabeçalho
    ========================= */
 .header {
     height: 80px;
@@ -37,9 +37,6 @@ body {
     z-index: 1000;
 }
 
-/* =========================
-   Logo e Nome da Loja
-   ========================= */
 .logo {
     display: flex;
     align-items: center;
@@ -53,14 +50,15 @@ body {
     font-size: 24px;
 }
 
-/* =========================
-   Barra de Navegação (Navbar)
-   ========================= */
 .navbar {
     display: flex;
     align-items: center;
     position: relative;
 }
+
+/* =========================
+   Elementos de Navegação
+   ========================= */
 .nav-links {
     list-style: none;
     display: none;
@@ -94,9 +92,6 @@ body {
     text-decoration: underline;
 }
 
-/* =========================
-   Ícone do Menu (Hambúrguer)
-   ========================= */
 .menu-icon {
     display: block;
     font-size: 24px;
@@ -107,7 +102,7 @@ body {
 }
 
 /* =========================
-   Área de Ações do Usuário (Login e Carrinho)
+   Ações do Usuário
    ========================= */
 .user-actions {
     display: flex;
@@ -117,10 +112,11 @@ body {
 .user-actions a {
     text-decoration: none !important;
 }
+
 .login-container, .cart-container {
     display: flex;
     align-items: center;
-    border: 2px solid transparent; /* Borda invisível */    
+    border: 2px solid transparent;
     gap: 5px;
     padding: 8px 12px;
     background-color: #9370DB;
@@ -147,14 +143,9 @@ body {
     font-size: 12px;
     margin-left: 4px;
 }
-@media (max-width: 600px) {
-    .login-text, .cart-text {
-        display: none;
-    }
-}
 
 /* =========================
-   Carrossel de Imagens
+   Componentes do Carrossel
    ========================= */
 .carousel {
     position: relative;
@@ -167,10 +158,12 @@ body {
     margin-top: auto;
     min-height: 200px;
 }
+
 .carousel-inner {
     display: flex;
     transition: transform 0.5s ease-in-out;
 }
+
 .carousel-item {
     min-width: 100%;
     box-sizing: border-box;
@@ -184,9 +177,6 @@ body {
     object-fit: cover;
 }
 
-/* =========================
-   Botões de Navegação do Carrossel
-   ========================= */
 .carousel-button {
     position: absolute;
     top: 50%;
@@ -207,9 +197,6 @@ body {
     right: 10px;
 }
 
-/* =========================
-   Indicadores do Carrossel
-   ========================= */
 .carousel-indicators {
     position: absolute;
     bottom: 10px;
@@ -232,53 +219,20 @@ body {
 }
 
 /* =========================
-   Responsividade do Carrossel
-   ========================= */
-@media (min-width: 1200px) {
-    .carousel-item img {
-        height: 500px;
-    }
-}
-@media (max-width: 1200px) {
-    .carousel-item img {
-        height: 350px;
-    }
-}
-@media (max-width: 992px) {
-    .carousel-item img {
-        height: 300px;
-    }
-}
-@media (max-width: 768px) {
-    .carousel-item img {
-        max-height: 300px;
-    }
-    .carousel {
-        min-height: 150px;
-    }
-}
-@media (max-width: 576px) {
-    .carousel-item img {
-        max-height: 200px;
-    }
-    .carousel {
-        min-height: 100px;
-    }
-}
-
-/* =========================
-   Seção de Informações dos Produtos
+   Seções de Conteúdo
    ========================= */
 .product-info {
     padding: 40px 20px;
     text-align: center;
 }
+
 .section-bar {
     height: 4px;
     background-color: #333;
     margin: 20px auto;
     width: 55%;
 }
+
 .top-bar {
     height: 4px;
     background-color: #333;
@@ -287,6 +241,7 @@ body {
     margin-top: 10px;
     margin-bottom: 30px;
 }
+
 .info-content h2 {
     font-size: 1.3rem;
     margin-bottom: 20px;
@@ -301,7 +256,7 @@ body {
 }
 
 /* =========================
-   Seção de Destaque dos Produtos (Cards)
+   Cards de Produtos
    ========================= */
 .product-destaque {
     display: flex;
@@ -311,9 +266,6 @@ body {
     gap: 20px;
 }
 
-/* =========================
-   Estilização dos Cards
-   ========================= */
 .card {
     width: 15rem;
     border: 1px solid #ddd;
@@ -326,24 +278,29 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
 .card-img-top {
     width: 100%;
     height: 150px;
     object-fit: cover;
 }
+
 .card-body {
     background-color: #8c658d;
     padding: 15px;
     text-align: center;
 }
+
 .card-title {
     font-size: 1.25rem;
     margin-bottom: 10px;
 }
+
 .card-text {
     font-size: 0.9rem;
     color: #555;
 }
+
 .list-group-item {
     background-color: #d4b77f !important;
     padding: 10px 15px;
@@ -351,6 +308,7 @@ body {
     text-align: center;
     transition: background-color 0.3s ease;
 }
+
 .card-body a {
     color: #0d1a29;
     text-decoration: none;
@@ -360,9 +318,6 @@ body {
     text-decoration: underline;
 }
 
-/* =========================
-   Botões dos Cards
-   ========================= */
 .card-button {
     display: inline-block;
     padding: 10px 20px;
@@ -390,26 +345,7 @@ body {
 }
 
 /* =========================
-   Responsividade dos Cards
-   ========================= */
-@media (max-width: 1200px) {
-    .card {
-        width: calc(33.33% - 20px);
-    }
-}
-@media (max-width: 768px) {
-    .card {
-        width: calc(50% - 20px);
-    }
-}
-@media (max-width: 576px) {
-    .card {
-        width: 100%;
-    }
-}
-
-/* =========================
-   Modal do Carrinho (Overlay)
+   Componentes de Modal
    ========================= */
 #cart-overlay {
     position: fixed;
@@ -423,6 +359,7 @@ body {
     z-index: 1000;
     display: none;
 }
+
 .cart-content {
     background-color: white;
     padding: 20px;
@@ -431,9 +368,7 @@ body {
     max-width: 90%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.cart-content h2 {
-    margin-top: 0;
-}
+
 #cart-items {
     max-height: 300px;
     overflow-y: auto;
@@ -452,9 +387,6 @@ body {
     background-color: #f2f2f2;
 }
 
-
-
-
 #login-modal {
     position: fixed;
     top: 0;
@@ -463,158 +395,112 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center!important;
-    align-items: center!important;
-    z-index: 1001; /* Garante que o modal de login fique acima do modal do carrinho */
+    justify-content:center!important;
+    align-items:center!important;
+    z-index: 1001;
 }
+
 .modal-overlay {
-    position: fixed; /* Fixa o modal na tela */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
-    display: flex; /* Usa flexbox para centralizar */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    z-index: 1000; /* Garante que o modal fique acima de outros elementos */
-  }
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
 .modal-content {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     width: 80%;
     max-width: 400px;
-    justify-content: center!important;
-    align-items: center!important;
+    justify-content:center!important;
+    align-items:center!important;
 }
 
 #close-login-modal {
     float: right;
     font-size: 28px;
-    font-weight: bold;/* ======================
-    Modais (Login e Carrinho)
-    ====================== */
- #login-modal,
- #cart-overlay {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background: rgba(0, 0, 0, 0.5);
-     display: none;
-     justify-content: center;
-     align-items: center;
-     z-index: 1001;
- }
- 
- /* Conteúdo do Modal */
- .modal-content {
-     background: white;
-     border-radius: 12px;
-     padding: 2rem;
-     width: 90%;
-     max-width: 400px;
-     box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-     position: fixed;
-     justify-content: center!important;
-    align-items: center!important;
- }
- 
- /* Estados do Modal de Login */
- .modal-content[data-state="login"] {
-     display: block;
- }
- 
- .modal-content[data-state="logged-in"] {
-     display: none; /* Inicialmente oculto */
- }
- 
- /* Botões de fechar */
- #close-login-modal-login,
- #close-login-modal-logged-in,
- #close-cart-button {
-     position: absolute;
-     top: 1rem;
-     right: 1rem;
-     cursor: pointer;
-     font-size: 1.5rem;
-     color: #666;
-     transition: color 0.3s ease;
- }
- 
- #close-login-modal-login:hover,
- #close-login-modal-logged-in:hover {
-     color: #333;
- }
- 
- /* Formulário de Login */
- #login-form input {
-     width: 100%;
-     padding: 12px;
-     margin: 8px 0;
-     border: 1px solid #ddd;
-     border-radius: 8px;
-     font-size: 1rem;
- }
- 
- #login-form button {
-     width: 100%;
-     padding: 12px;
-     background: #9370DB;
-     color: white;
-     border: none;
-     border-radius: 8px;
-     cursor: pointer;
-     margin-top: 1rem;
- }
- 
- /* Estilo do Carrinho */
- #cart-items {
-     max-height: 60vh;
-     overflow-y: auto;
-     margin: 1rem 0;
- }
- 
- #cart-items .cart-item {
-     display: flex;
-     justify-content: space-between;
-     padding: 10px;
-     border-bottom: 1px solid #eee;
- }
- 
- #logout-button {
-     background: #dc3545;
-     color: white;
-     padding: 10px 20px;
-     border: none;
-     border-radius: 6px;
-     cursor: pointer;
-     margin-top: 1rem;
- }
+    font-weight: bold;
     cursor: pointer;
 }
-/* =========================
-   modal registro
-   ========================= */
-   #register-modal {
+
+#register-modal {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    width: 400px;  /* Aumenta a largura */
-    height: auto;  /* Altura ajustável ao conteúdo */
-    padding: 30px; /* Aumenta o espaçamento interno */
+    width: 400px;
+    height: auto;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
 
+/* =========================
+   Media Queries
+   ========================= */
+@media (max-width: 600px) {
+    .login-text, .cart-text {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .carousel-item img {
+        height: 500px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .carousel-item img {
+        height: 350px;
+    }
+    .card {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media (max-width: 992px) {
+    .carousel-item img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-item img {
+        max-height: 300px;
+    }
+    .carousel {
+        min-height: 150px;
+    }
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-item img {
+        max-height: 200px;
+    }
+    .carousel {
+        min-height: 100px;
+    }
+    .card {
+        width: 100%;
+    }
+}
+
 .show-modal {
-    display: flex !important; /* Use !important com cautela, mas aqui é útil para sobrepor estilos inline */
+    display: flex !important;
 }
 
 .hide-modal {
