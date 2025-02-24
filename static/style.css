@@ -463,8 +463,8 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center!important;
+    align-items: center!important;
     z-index: 1001; /* Garante que o modal de login fique acima do modal do carrinho */
 }
 .modal-overlay {
