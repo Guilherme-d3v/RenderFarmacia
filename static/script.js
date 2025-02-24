@@ -240,3 +240,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// =========================
+// Lógica de Cadastro (modal cadastro)
+document.getElementById("open-register-modal").addEventListener("click", function() {
+    document.getElementById("login-modal").style.display = "none";
+    document.getElementById("register-modal").style.display = "block";
+});
+
+document.getElementById("close-register-modal").addEventListener("click", function() {
+    document.getElementById("register-modal").style.display = "none";
+    document.getElementById("login-modal").style.display = "block";
+});
+
