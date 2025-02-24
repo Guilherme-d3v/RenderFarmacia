@@ -400,7 +400,7 @@ body {
     z-index: 1001;
 }
 .login-modal h2 {
-    text-align: flex-start;
+    text-align: flex-start!important;
     margin-bottom: 20px;
 }
 .modal-overlay {
