@@ -498,7 +498,7 @@ form button,
     background: #9370DB;
     width: 400px;
     height: auto;
-    padding: 30px;
+    padding: 0px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
