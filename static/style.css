@@ -351,7 +351,7 @@ h3 {
 }
 
 /* =========================
-   Componentes de Modal
+   Componentes Diversos
    ========================= */
 #cart-overlay {
     position: fixed;
@@ -393,101 +393,15 @@ h3 {
     background-color: #f2f2f2;
 }
 
-#login-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
-}
-.login-modal h2 {
-    text-align: left !important;
-    margin-bottom: 20px;
-}
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-/* Modal com padding fixo e elementos posicionados de forma relativa */
-.modal-content {
-    position: relative; /* Elementos absolutos ficarão relacionados a este contêiner */
-    background-color: #9370DB; /* fundo alterado para roxo */
-    padding: 20px; /* Padding fixo para o modal */
-    border-radius: 8px;
-    width: 80%;
-    max-width: 400px;
-    text-align: left;
-}
-
-.modal-content h2 {
-    margin-top: 5px; /* Espaço para o botão de fechar */
-    text-align: left;
-}
-
-/* Botões de fechar */
-#close-login-modal {
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-#close-login-modal-login {
-    position: absolute; /* Posiciona o botão de fechar em relação ao modal */
-    top: 10px;          /* Distância fixa do topo do modal */
-    right: 10px;        /* Distância fixa da direita do modal */
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-#close-login-modal-logged-in {
-    position: absolute; /* Posiciona o botão de fechar em relação ao modal */
-    top: 10px;          /* Distância fixa do topo do modal */
-    right: 10px;        /* Distância fixa da direita do modal */
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#register-modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #9370DB; /* fundo alterado para roxo */
-    width: 400px;
-    height: auto;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
 /* =========================
    Estilos para Forms e Botões dentro deles/Modais
    ========================= */
-/* Caso haja formulários fora dos modais, este estilo aplica fundo roxo */
 form {
     background-color: #9370DB;
     padding: 20px;
     border-radius: 8px;
 }
 
-/* Botões dentro de formulários e modais ficarão com fundo laranja */
 form button,
 .modal-content button,
 .cart-content button,
@@ -499,6 +413,117 @@ form button,
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+}
+
+/* =========================
+   CSS dos Modais
+   ========================= */
+
+/* ---------- Login Modal CSS ---------- */
+#login-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;  /* caso queira empilhar os estados */
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+/* Conteúdo para estado "login" */
+#login-modal .modal-content[data-state="login"] {
+    position: relative;
+    background-color: #9370DB;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    text-align: left;
+    margin-bottom: 20px; /* se desejar separação entre estados */
+}
+
+#login-modal .modal-content[data-state="login"] h2 {
+    margin-top: 5px;
+    text-align: left;
+}
+
+/* Botão de fechar do estado "login" */
+#close-login-modal-login {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Conteúdo para estado "logged-in" */
+#login-modal .modal-content[data-state="logged-in"] {
+    position: relative;
+    background-color: #9370DB;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    text-align: left;
+}
+
+#login-modal .modal-content[data-state="logged-in"] p {
+    margin-top: 5px;
+    text-align: left;
+}
+
+/* Botão de fechar do estado "logged-in" */
+#close-login-modal-logged-in {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ---------- Register Modal CSS ---------- */
+#register-modal {
+    display: none; /* Oculto por padrão */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #9370DB;
+    width: 400px;
+    height: auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#register-modal .modal-content {
+    position: relative;
+    background-color: #9370DB;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+#register-modal .modal-content h2 {
+    margin-top: 5px;
+    text-align: left;
+}
+
+/* Botão de fechar do Register Modal */
+#close-register-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* =========================
