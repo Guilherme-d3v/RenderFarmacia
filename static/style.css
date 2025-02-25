@@ -401,12 +401,12 @@ h3 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
     z-index: 1001;
 }
 .login-modal h2 {
-    text-align: flex-start!important;
+    text-align: left !important;
     margin-bottom: 20px;
 }
 .modal-overlay {
@@ -422,30 +422,36 @@ h3 {
     z-index: 1000;
 }
 
+/* Modal com padding fixo e elementos posicionados de forma relativa */
 .modal-content {
+    position: relative; /* Elementos absolutos ficarão relacionados a este contêiner */
     background-color: #9370DB; /* fundo alterado para roxo */
-    padding: 20px;
+    padding: 20px; /* Padding fixo para o modal */
     border-radius: 8px;
     width: 80%;
     max-width: 400px;
-    justify-content:center!important;
-    align-items:center!important;
-    text-align: flex-start!important;
+    text-align: left;
 }
 
+.modal-content h2 {
+    margin-top: 50px; /* Espaço para o botão de fechar */
+    text-align: left;
+}
+
+/* Botões de fechar */
 #close-login-modal {
     float: right;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-    
 }
 #close-login-modal-login {
-    float: right!important;
+    position: absolute; /* Posiciona o botão de fechar em relação ao modal */
+    top: 10px;          /* Distância fixa do topo do modal */
+    right: 10px;        /* Distância fixa da direita do modal */
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-    
 }
 #close-login-modal-logged-in {
     /* Seus estilos aqui */
