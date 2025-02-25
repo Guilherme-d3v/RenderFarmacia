@@ -6,37 +6,207 @@
     <link rel="stylesheet" href="/static/style.css">
     <title>Document</title>
 </head>
+</head>
 <body>
-    <div id="login-modal" style="display: none;">
-        <div class="modal-content" data-state="login">
-            <span id="close-login-modal-login">&times;</span>
-            <h2>Login</h2>
-            <form id="login-form">
-                <input type="email" id="email" name="email" placeholder="Email" required><br>
-                <input type="password" id="password" name="password" placeholder="Senha" required><br>
-                <button type="submit">Entrar</button>
-                <button type="button" id="open-register-modal">Cadastrar-se</button>
-            </form>
+    <!-- Cabeçalho fixo da página -->
+    <header class="header">
+        <!-- Seção da logo e nome da loja -->
+        <div class="logo">
+            <!-- Imagem da logo -->
+            <img src="/static/images/logo3.png" alt="Logo da Loja">
+            <!-- Nome da loja -->
+            <h1>Botica Suplementos</h1>
         </div>
-        
-        <div class="modal-content" data-state="logged-in">
-            <span id="close-login-modal-logged-in">&times;</span>
-            <p>Olá, <span id="user-nome"></span>, seja bem vindo!</p>
-            <button id="logout-button">Logout</button>
+        <!-- Navegação principal -->
+        <nav class="navbar">
+            <!-- Ícone de menu (hambúrguer) para dispositivos móveis com função para alternar a exibição do menu -->
+            <div class="menu-icon" onclick="toggleNav()">&#9776;</div>
+            <!-- Lista de links da navbar -->
+            <ul class="nav-links">
+                <li><a href="#">Escolha por sintomas</a></li>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="#">Linhas completas</a></li>
+                <li><a href="#">Área do Cliente</a></li>
+            </ul>
+        </nav>
+        <!-- Seção de ações do usuário: login e carrinho -->
+        <div class="user-actions">
+            <!-- Link para a página de login -->
+            <a href="#" class="login-container">                       
+                <!-- Ícone SVG representando uma pessoa -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+                <!-- Texto de Login -->
+                <span class="login-text">Login</span>
+            </a>
+            <!-- Botão para abrir o carrinho; inclui contador do carrinho -->
+            <button id="open-cart-button" class="cart-container" type="button" onclick="abrirCarrinho()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart">
+                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                </svg>
+                <!-- Texto de Carrinho (que poderá ser ocultado em telas pequenas) -->
+                <span class="cart-text">Carrinho</span>
+                <!-- Elemento para exibir a quantidade de itens no carrinho -->
+                <span id="contador-carrinho">0</span>
+            </button>
         </div>
-    </div>
+    </header>
+
+    <!-- Conteúdo principal da página -->
+    <main>
+        <!-- Carrossel de imagens -->
+        <div class="carousel">
+            <div class="carousel-inner">
+                <!-- Cada .carousel-item representa um slide com uma imagem -->
+                <div class="carousel-item"><img src="/static/images/cr1.webp" alt="Imagem 1"></div>
+                <div class="carousel-item"><img src="/static/images/cr2.webp" alt="Imagem 2"></div>
+                <div class="carousel-item"><img src="/static/images/cr3.jpg" alt="Imagem 3"></div>
+                <div class="carousel-item"><img src="/static/images/cr4.webp" alt="Imagem 4"></div>
+            </div>
+            <!-- Botões para navegação manual do carrossel -->
+            <button class="carousel-button prev">&#10094;</button>
+            <button class="carousel-button next">&#10095;</button>
+            <!-- Indicadores de slide -->
+            <div class="carousel-indicators">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Seção de informações dos produtos -->
+    <section class="product-info">
+        <!-- Barras decorativas superior e inferior -->
+        <div class="section-bar top-bar"></div> <!-- Barra superior -->
+        <div class="info-content">
+            <!-- Título e descrição dos produtos; utiliza a bolinha (•) como marcador inline -->
+            <h2>Dermocosméticos de excelência que aliam <br> desempenho superior clareza e preços justos</h2>
+            <p>• Fórmulas altamente concentradas garantindo resultados eficazes com segurança comprovada</p>
+            <p>• Produtos com ativos de última geração, que garantem a eficácia e a segurança dos tratamentos</p>
+            <p>• Transparência total nas concentrações e benefícios de cada ingrediente ativo</p>
+            <p>• Preços competitivos para tratamentos fundamentados na ciência</p>
+        </div>
+        <div class="section-bar bottom-bar"></div> <!-- Barra inferior -->
+    </section>
+
+    <!-- Seção de destaque de produtos (cards) -->
+    <section class="product-destaque">
+        <!-- Card de produto: cada card exibe uma imagem, título, descrição, lista de itens e botões de ação -->
+        <div class="card" style="width: 18rem;">
+            <img src="/static/images/kitsono.png" class="card-img-top" alt="Kit Sono">
+            <div class="card-body">
+                <h5 class="card-title">Kit sono</h5>
+                <p class="card-text">Ingredientes naturais selecionados para ajudar na qualidade de sono e descanso.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Folhas de Camomila</li>
+                <li class="list-group-item">Extrato de maracujá</li>
+                <li class="list-group-item">Pó de Rivotril</li>
+            </ul>
+            <div class="card-body">
+                <button class="card-button add-to-cart" onclick="adicionarAoCarrinho(2, 1)">Adicionar ao Carrinho</button>
+                <button class="card-button view-details" onclick="viewDetails()">Ver Especificações</button>
+            </div>
+        </div>
+        <!-- Outros cards seguem a mesma estrutura -->
+        <div class="card" style="width: 18rem;">
+            <img src="/static/images/kitdigestao.png" class="card-img-top" alt="Kit Fictício">
+            <div class="card-body">
+                <h5 class="card-title">Kit ficticio</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+            </ul>
+            <div class="card-body">
+                <button class="card-button add-to-cart" onclick="adicionarAoCarrinho('Kit Ficticio', 50.00)">Adicionar ao Carrinho</button>
+                <button class="card-button view-details" onclick="viewDetails()">Ver Especificações</button>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="/static/images/kitpressao.png" class="card-img-top" alt="Kit Pressão">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+            </ul>
+            <div class="card-body">
+                <button class="card-button add-to-cart" onclick="adicionarAoCarrinho('Kit Pressao', 50.00)">Adicionar ao Carrinho</button>
+                <button class="card-button view-details" onclick="viewDetails()">Ver Especificações</button>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="/static/images/kitpressao.png" class="card-img-top" alt="Kit Pressão">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+            </ul>
+            <div class="card-body">
+                <button class="card-button add-to-cart" onclick="adicionarAoCarrinho('Kit Pressao', 50.00)">Adicionar ao Carrinho</button>
+                <button class="card-button view-details" onclick="viewDetails()">Ver Especificações</button>
+            </div>
+        </div>
+    </section>
+
     
-    <div id="register-modal" style="display: flex;">
-        <div class="modal-content">
-            <span id="close-register-modal">&times;</span>
-            <h2>Cadastro</h2>
-            <form id="register-form">
-                <input type="text" id="register-nome" name="nome" placeholder="Nome" required><br>
-                <input type="email" id="register-email" name="email" placeholder="Email" required><br>
-                <input type="password" id="register-password" name="password" placeholder="Senha" required><br>
-                <button type="submit">Cadastrar</button>
-            </form>
-        </div>
+    
+  <!-- Overlay do carrinho -->
+  <div id="cart-overlay" style="display: none;">
+    <div class="cart-content">
+        <h2>Carrinho</h2>
+        <div id="cart-items"></div>
+        <button id="close-cart-button" onclick="fecharCarrinho()">Fechar</button>
     </div>
+</div>
+
+<!-- Modal de Login (POSIÇÃO CORRIGIDA: antes do script) -->
+<div id="login-modal" style="display: flex;">
+    <div class="modal-content" data-state="login">
+        <span id="close-login-modal-login">&times;</span>
+        <h3>Login</h3>
+        <form id="login-form">
+            <input type="email" id="email" name="email" placeholder="Email" required><br>
+            <input type="password" id="password" name="password" placeholder="Senha" required><br>
+            <button type="submit">Entrar</button>
+            <button type="button" id="open-register-modal">Cadastrar-se</button>
+        </form>
+    </div>   
+    <div class="modal-content" data-state="logged-in">
+        <span id="close-login-modal-logged-in">&times;</span>
+        <p>Olá, <span id="user-nome"></span>, seja bem vindo!</p>
+        <button id="logout-button">Logout</button>
+    </div>
+</div>
+
+<div id="register-modal" style="display: none;">
+    <div class="modal-content">
+        <span id="close-register-modal">&times;</span>
+        <h2>Cadastro</h2>
+        <form id="register-form">
+            <input type="text" id="register-nome" name="nome" placeholder="Nome" required><br>
+            <input type="email" id="register-email" name="email" placeholder="Email" required><br>
+            <input type="password" id="register-password" name="password" placeholder="Senha" required><br>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Script JS -->
+<script src="/static/script.js"></script>
 </body>
 </html>

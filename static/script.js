@@ -116,7 +116,7 @@ function atualizarCarrinho() {
         .catch(error => {
             console.error('Erro ao carregar carrinho:', error);
             const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = `<p>Erro ao carregar carrinho: ${error.message}</p>`;
+            cartItems.innerHTML = `<p>Por favor efetue login.</p>`;
         });
 }
 
