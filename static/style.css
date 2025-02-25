@@ -618,9 +618,12 @@ form button,
 .footer {
     background-color: #9370DB;;
     color: #fff;
-    padding: 40px 20px;
+    padding: 0px;
     font-family: Arial, sans-serif;
-  }
+    width: 100%;
+    height: auto;
+}
+  
   
   /* Container do Rodapé (para as 4 colunas) */
   .footer-container {
