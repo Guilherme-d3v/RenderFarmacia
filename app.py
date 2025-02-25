@@ -138,7 +138,7 @@ def carrinho():
     try:
         user_id = session.get('user_id')
         if not user_id:
-            return jsonify({'error': 'Usuário não autenticado'}), 401
+            return jsonify({'Por favor, efetue login'}), 401
 
         # Busca os itens do carrinho do usuário autenticado
         itens_no_carrinho = CartItem.query.filter_by(user_id=user_id).all()

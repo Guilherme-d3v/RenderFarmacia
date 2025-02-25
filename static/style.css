@@ -395,8 +395,8 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content:center!important;
-    align-items:center!important;
+    justify-content:center;
+    align-items:center;
     z-index: 1001;
 }
 .login-modal h2 {
@@ -424,6 +424,7 @@ body {
     max-width: 400px;
     justify-content:center!important;
     align-items:center!important;
+    text-align: flex-start!important;
 }
 
 #close-login-modal {
