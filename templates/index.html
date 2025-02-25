@@ -173,39 +173,39 @@
         <div id="cart-items"></div>
         <button id="close-cart-button" onclick="fecharCarrinho()">Fechar</button>
     </div>
-</div>
+    </div>
 
 <!-- Modal de Login (POSIÇÃO CORRIGIDA: antes do script) -->
-<div id="login-modal" style="display: none;">
-    <div class="modal-content" data-state="login">
-        <span id="close-login-modal-login">&times;</span>
-        <h2>Login</h2>
-        <form id="login-form">
-            <input type="email" id="email" name="email" placeholder="Email" required><br>
-            <input type="password" id="password" name="password" placeholder="Senha" required><br>
-            <button type="submit">Entrar</button>
-            <button type="button" id="open-register-modal">Cadastrar-se</button>
-        </form>
-    </div>   
-    <div class="modal-content" data-state="logged-in">
-        <span id="close-login-modal-logged-in">&times;</span>
-        <p>Olá, <span id="user-nome"></span>, seja bem vindo!</p>
-        <button id="logout-button">Logout</button>
+    <div id="login-modal" style="display: none;">
+        <div class="modal-content" data-state="login">
+            <span id="close-login-modal-login">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="email" name="email" placeholder="Email" required><br>
+                <input type="password" id="password" name="password" placeholder="Senha" required><br>
+                <button type="submit">Entrar</button>
+                <button type="button" id="open-register-modal">Cadastrar-se</button>
+            </form>
+        </div>   
+        <div class="modal-content" data-state="logged-in">
+            <span id="close-login-modal-logged-in">&times;</span>
+            <p>Olá, <span id="user-nome"></span>, seja bem vindo!</p>
+            <button id="logout-button">Logout</button>
+        </div>
     </div>
-</div>
 
-<div id="register-modal" style="display: none;">
-    <div class="modal-content">
-        <span id="close-register-modal">&times;</span>
-        <h2>Cadastro</h2>
-        <form id="register-form">
-            <input type="text" id="register-nome" name="nome" placeholder="Nome" required><br>
-            <input type="email" id="register-email" name="email" placeholder="Email" required><br>
-            <input type="password" id="register-password" name="password" placeholder="Senha" required><br>
-            <button type="submit">Cadastrar</button>
-        </form>
+    <div id="register-modal" style="display: none;">
+        <div class="modal-content">
+            <span id="close-register-modal">&times;</span>
+            <h2>Cadastro</h2>
+            <form id="register-form">
+                <input type="text" id="register-nome" name="nome" placeholder="Nome" required><br>
+                <input type="email" id="register-email" name="email" placeholder="Email" required><br>
+                <input type="password" id="register-password" name="password" placeholder="Senha" required><br>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
     </div>
-</div>
 
 
 <!-- Script JS -->
