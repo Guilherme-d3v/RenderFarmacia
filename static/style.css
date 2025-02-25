@@ -538,13 +538,13 @@ form button,
 
 @media (min-width: 1200px) {
     .carousel-item img {
-        height: 500px;
+        height: 400px;
     }
 }
 
 @media (max-width: 1200px) {
     .carousel-item img {
-        height: 350px;
+        height: 650px;
     }
     .card {
         width: calc(33.33% - 20px);
