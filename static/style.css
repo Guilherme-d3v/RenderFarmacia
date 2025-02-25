@@ -454,8 +454,9 @@ h3 {
     cursor: pointer;
 }
 #close-login-modal-logged-in {
-    /* Seus estilos aqui */
-    float: right;
+    position: absolute; /* Posiciona o botão de fechar em relação ao modal */
+    top: 10px;          /* Distância fixa do topo do modal */
+    right: 10px;        /* Distância fixa da direita do modal */
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
