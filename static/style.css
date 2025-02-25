@@ -20,6 +20,12 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+h3 {
+    color: black;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
 
 /* =========================
    Componentes do Cabeçalho
@@ -428,6 +434,21 @@ body {
 }
 
 #close-login-modal {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+#close-login-modal-login {
+    float: right!important;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+#close-login-modal-logged-in {
+    /* Seus estilos aqui */
     float: right;
     font-size: 28px;
     font-weight: bold;
