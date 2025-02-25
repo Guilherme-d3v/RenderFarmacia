@@ -475,6 +475,7 @@ form button,
 #login-modal .modal-content[data-state="logged-in"] p {
     margin-top: 5px;
     text-align: left;
+    padding: 10px;
 }
 
 /* Botão de fechar do estado "logged-in" */
@@ -504,7 +505,7 @@ form button,
 }
 
 #register-modal .modal-content {
-    position: relative;
+    /*position: relative;*/
     background-color: #9370DB;
     padding: 20px;
     border-radius: 8px;
