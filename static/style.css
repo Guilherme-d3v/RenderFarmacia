@@ -528,58 +528,102 @@ form button,
 }
 
 /* =========================
-   Media Queries
+   Media Queries - Responsividade
    ========================= */
-@media (max-width: 600px) {
+
+/* Extra small devices: 0 - 320px */
+@media (max-width: 320px) {
+    .carousel-item img {
+      max-height: 120px;
+    }
+    .carousel {
+      min-height: 90px;
+    }
+    .card {
+      width: 100%;
+    }
+  }
+  
+  /* Small devices: 321px - 375px */
+  @media (min-width: 321px) and (max-width: 375px) {
+    .carousel-item img {
+      max-height: 130px;
+    }
+    .carousel {
+      min-height: 95px;
+    }
+    .card {
+      width: 100%;
+    }
+  }
+  
+  /* Small devices: 376px - 414px */
+  @media (min-width: 376px) and (max-width: 414px) {
+    .carousel-item img {
+      max-height: 135px;
+    }
+    .carousel {
+      min-height: 100px;
+    }
+    .card {
+      width: 100%;
+    }
+  }
+  
+  /* Devices: 415px - 576px */
+  @media (min-width: 415px) and (max-width: 576px) {
+    /* Oculta elementos de texto de login/carrinho */
     .login-text, .cart-text {
-        display: none;
+      display: none;
     }
-}
-
-@media (min-width: 1200px) {
     .carousel-item img {
-        height: 635px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .carousel-item img {
-        height: 650px;
-    }
-    .card {
-        width: calc(33.33% - 20px);
-    }
-}
-
-@media (max-width: 992px) {
-    .carousel-item img {
-        height: 300px;
-    }
-}
-
-@media (max-width: 768px) {
-    .carousel-item img {
-        max-height: 300px;
+      max-height: 140px;
     }
     .carousel {
-        min-height: 150px;
+      min-height: 100px;
     }
     .card {
-        width: calc(50% - 20px);
+      width: 100%;
     }
-}
-
-@media (max-width: 576px) {
+  }
+  
+  /* Devices: 577px - 768px */
+  @media (min-width: 577px) and (max-width: 768px) {
     .carousel-item img {
-        max-height: 140px;
+      max-height: 300px;
     }
     .carousel {
-        min-height: 100px;
+      min-height: 150px;
     }
     .card {
-        width: 100%;
+      width: calc(50% - 20px);
     }
-}
+  }
+  
+  /* Devices: 769px - 992px */
+  @media (min-width: 769px) and (max-width: 992px) {
+    .carousel-item img {
+      height: 300px;
+    }
+  }
+  
+  /* Devices: 993px - 1200px */
+  @media (min-width: 993px) and (max-width: 1200px) {
+    .carousel-item img {
+      height: 650px;
+    }
+    .card {
+      width: calc(33.33% - 20px);
+    }
+  }
+  
+  /* Devices: 1201px and above */
+  @media (min-width: 1201px) {
+    .carousel-item img {
+      height: 635px;
+    }
+  }
+  
 
 /*===================================
         MODAL
