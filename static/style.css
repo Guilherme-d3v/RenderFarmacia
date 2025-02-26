@@ -542,6 +542,9 @@ form button,
     .card {
       width: 100%;
     }
+    .login-text, .cart-text {
+        display: none;
+      }
   }
   
   /* Small devices: 321px - 375px */
@@ -555,6 +558,9 @@ form button,
     .card {
       width: 100%;
     }
+    .login-text, .cart-text {
+        display: none;
+      }
   }
   
   /* Small devices: 376px - 414px */
@@ -568,6 +574,9 @@ form button,
     .card {
       width: 100%;
     }
+    .login-text, .cart-text {
+        display: none;
+      }
   }
   
   /* Devices: 415px - 576px */
