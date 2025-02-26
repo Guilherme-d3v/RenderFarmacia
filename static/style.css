@@ -586,7 +586,7 @@ form button,
       display: none;
     }
     .carousel-item img {
-      max-height: 140px;
+      max-height: 200px;
     }
     .carousel {
       min-height: 100px;
@@ -612,14 +612,14 @@ form button,
   /* Devices: 769px - 992px */
   @media (min-width: 769px) and (max-width: 992px) {
     .carousel-item img {
-      height: 300px;
+      max-height: 350px;
     }
   }
   
   /* Devices: 993px - 1200px */
   @media (min-width: 993px) and (max-width: 1200px) {
     .carousel-item img {
-      height: 650px;
+      max-height: 650px;
     }
     .card {
       width: calc(33.33% - 20px);
@@ -629,7 +629,7 @@ form button,
   /* Devices: 1201px and above */
   @media (min-width: 1201px) {
     .carousel-item img {
-      height: 635px;
+      max-height: 800px;
     }
   }
   
