@@ -574,7 +574,7 @@ form button,
     .card {
       width: 100%;
     }
-    .login-text, .cart-text {
+    .login-text, .cart-text, #contador-carrinho {
         display: none;
       }
   }
