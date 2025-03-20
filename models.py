@@ -9,7 +9,9 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(60), nullable=False)
     nome = db.Column(db.String(100), nullable=False)
-
+    birth = db.Column(db.String(10), nullable=False) # Assumindo formato DD/MM/AAAA
+    cpf = db.Column(db.String(14), unique=True, nullable=False) # Assumindo formato XXX.XXX.XXX-XX
+    telefone = db.Column(db.String(15), nullable=False) # Assumindo formato (XX) XXXXX-XXXX
 
     def __repr__(self):
         return f"User('{self.email}')"
