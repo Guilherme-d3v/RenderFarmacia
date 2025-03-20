@@ -38,6 +38,10 @@ def index():
     # Rota principal que renderiza a página inicial
     return render_template('index.html')
 
+@app.route('/construct')
+def construct():
+    return render_template('construct.html')
+
 @app.route('/register', methods=['POST'])
 def register():
     try:
