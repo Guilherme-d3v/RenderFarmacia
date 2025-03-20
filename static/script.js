@@ -302,11 +302,14 @@ document.getElementById("register-form").addEventListener("submit", async functi
     const nome = document.getElementById("register-nome").value;
     const email = document.getElementById("register-email").value;
     const password = document.getElementById("register-password").value;
+    const birth = document.getElementById("register-birth").value;
+    const cpf = document.getElementById("register-cpf").value;
+    const telefone = document.getElementById("register-telefone").value;
 
     const response = await fetch("/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, password })
+        body: JSON.stringify({ nome, email, password, birth, cpf, telefone })
     });
 
     const data = await response.json();

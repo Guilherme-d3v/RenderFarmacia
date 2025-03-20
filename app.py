@@ -46,28 +46,34 @@ def construct():
 def register():
     try:
         data = request.json  # Recebe os dados em JSON do front-end
-        nome = data.get("nome")  # Pega o nome do usuário
+        nome = data.get("nome")
         email = data.get("email")
         password = data.get("password")
+        birth = data.get("birth")
+        cpf = data.get("cpf")
+        telefone = data.get("telefone")
 
-        if not nome or not email or not password:
+        if not nome or not email or not password or not birth or not cpf or not telefone:
             return jsonify({"message": "Preencha todos os campos!", "success": False}), 400
 
-        # Verifica se o e-mail já está cadastrado
+        # Verifica se o e-mail ou CPF já estão cadastrados
         if User.query.filter_by(email=email).first():
             return jsonify({"message": "Email já cadastrado!", "success": False}), 400
+        if User.query.filter_by(cpf=cpf).first():
+            return jsonify({"message": "CPF já cadastrado!", "success": False}), 400
 
         # Criar usuário e definir a senha usando o método set_password()
-        new_user = User(nome=nome, email=email)  # Agora inclui nome!
-        new_user.set_password(password)  # Hash da senha
+        new_user = User(nome=nome, email=email, birth=birth, cpf=cpf, telefone=telefone)
+        new_user.set_password(password)
 
         db.session.add(new_user)
-        db.session.commit()  # Salva o usuário no banco de dados
+        db.session.commit()
 
         return jsonify({"message": "Cadastro realizado com sucesso!", "success": True}), 201
 
     except Exception as e:
         return jsonify({"message": f"Erro ao cadastrar: {str(e)}", "success": False}), 500
+
 
 # ====== PARTE CORRIGIDA ======
 @app.route('/login', methods=['POST'])
