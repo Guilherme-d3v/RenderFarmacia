@@ -34,10 +34,11 @@
 
 - **Carrinho:**  
   - Adicionar link de conclusão e direcionamento para plataforma de pagamento.  
-  - Adicionar linha de soma de itens.
+  - Adicionar linha de soma de itens. FEITO 
 
 - **Login:**  
-  - Adicionar link de recuperação de senha.
+  - Adicionar link de recuperação de senha. FEITO NECESSITA DE EMAIL OFICIAL 
+  - Alterar exigência de mínimo 8 caracteres para registro inicial
 
 - **Elaboração da página "Área do cliente".**
 
