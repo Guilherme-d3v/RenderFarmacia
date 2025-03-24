@@ -187,7 +187,9 @@
                 <button type="submit">Entrar</button>
                 <button type="button" id="open-register-modal">Cadastrar-se</button>
                 <p>
-                    <a href="{{ url_for('forgot_password') }}">Esqueci minha senha</a>
+                    <p>
+                        <a href="#" id="open-recovery-modal">Esqueci minha senha</a>
+                    </p>
                 </p>
             </form>
         </div>   
@@ -213,6 +215,19 @@
             </form>
         </div>
     </div>
+    <!-- Modal de Recuperação de Senha -->
+<!-- Modal de Recuperação de Senha -->
+<div id="recovery-modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-recovery-modal">&times;</span>
+        <h2>Recuperar Senha</h2>
+        <form id="recovery-form">
+            <input type="email" id="recovery-email" name="email" placeholder="Email cadastrado" required><br>
+            <button type="submit">Enviar Link de Recuperação</button>
+            <button type="button" id="back-to-login">Voltar para Login</button>
+        </form>
+    </div>
+</div>
     </div>
         <a href="https://api.whatsapp.com/send?phone=5521981603780" target="_blank" class="wpplink">
         <i class="fab fa-whatsapp"></i>

@@ -334,3 +334,46 @@ document.getElementById("register-form").addEventListener("submit", async functi
 });
 
 //======== LOGICA PASS RECOVER ==========//
+
+// Funções para o modal de recuperação de senha
+function openRecoveryModal() {
+    document.getElementById('login-modal').style.display = 'none';
+    document.getElementById('recovery-modal').style.display = 'flex';
+}
+
+function closeRecoveryModal() {
+    document.getElementById('recovery-modal').style.display = 'none';
+}
+
+// Event listeners para o modal de recuperação
+document.getElementById('open-recovery-modal')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    openRecoveryModal();
+});
+
+document.querySelector('.close-recovery-modal')?.addEventListener('click', closeRecoveryModal);
+document.getElementById('back-to-login')?.addEventListener('click', function() {
+    closeRecoveryModal();
+    document.getElementById('login-modal').style.display = 'flex';
+});
+
+// Envio do formulário de recuperação
+document.getElementById('recovery-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('recovery-email').value;
+    
+    // Aqui você pode adicionar a lógica para enviar o email de recuperação
+    console.log('Email de recuperação enviado para:', email);
+    
+    // Mostrar mensagem de sucesso e voltar para o login
+    alert('Um link de recuperação foi enviado para seu email!');
+    closeRecoveryModal();
+    document.getElementById('login-modal').style.display = 'flex';
+});
+
+// Fechar modal ao clicar fora
+window.addEventListener('click', function(e) {
+    if (e.target === document.getElementById('recovery-modal')) {
+        closeRecoveryModal();
+    }
+});
