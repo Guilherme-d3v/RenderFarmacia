@@ -17,6 +17,8 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'guii.parada@gmail.com'  # seu e-mail
 app.config['MAIL_PASSWORD'] = 'phae zigu odbw fcch'  # sua senha ou app password
+app.config['MAIL_DEFAULT_SENDER'] = 'guii.parada@gmail.com'  # Substitua pelo seu e-mail
+
 
 # Inicializando o Flask-Mail
 mail = Mail(app)
