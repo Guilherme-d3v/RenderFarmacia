@@ -333,4 +333,4 @@ document.getElementById("register-form").addEventListener("submit", async functi
     }
 });
 
-
+//======== LOGICA PASS RECOVER ==========//
