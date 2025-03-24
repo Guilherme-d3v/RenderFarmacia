@@ -87,16 +87,17 @@ function atualizarCarrinho() {
         })
         .then(data => {
             const cartItems = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
+            const cartTotalElement = document.getElementById('cart-total'); // Renomeei para clareza
             const contador = document.getElementById('contador-carrinho');
 
             cartItems.innerHTML = '';
-            let total = 0;
 
             if (data.error) {
                 cartItems.innerHTML = `<p>${data.error}</p>`;
-            } else if (data.length > 0) {
-                data.forEach(item => {
+                if (cartTotalElement) cartTotalElement.textContent = 'Total: R$ 0.00'; // Garante que o total seja resetado em caso de erro
+                if (contador) contador.textContent = '0';
+            } else if (data.itens && data.itens.length > 0) { // Verifica se data.itens existe e não está vazio
+                data.itens.forEach(item => {
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('cart-item');
                     itemElement.innerHTML = `
@@ -104,19 +105,29 @@ function atualizarCarrinho() {
                         <button onclick="removerDoCarrinho(${item.id})">Remover</button>
                     `;
                     cartItems.appendChild(itemElement);
-                    total += item.produto.preco * item.quantidade;
                 });
+                if (cartTotalElement) cartTotalElement.textContent = `Total: R$ ${data.total.toFixed(2)}`; // Usa o total retornado do backend
+                if (contador) {
+                    let totalItens = 0;
+                    data.itens.forEach(item => {
+                        totalItens += item.quantidade;
+                    });
+                    contador.textContent = totalItens;
+                }
             } else {
                 cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
+                if (cartTotalElement) cartTotalElement.textContent = 'Total: R$ 0.00';
+                if (contador) contador.textContent = '0';
             }
-
-            if (cartTotal) cartTotal.textContent = total.toFixed(2);
-            if (contador) contador.textContent = data.length ? data.reduce((acc, item) => acc + item.quantidade, 0) : 0;
         })
         .catch(error => {
             console.error('Erro ao carregar carrinho:', error);
             const cartItems = document.getElementById('cart-items');
             cartItems.innerHTML = `<p>Por favor efetue login.</p>`;
+            const cartTotalElement = document.getElementById('cart-total');
+            if (cartTotalElement) cartTotalElement.textContent = 'Total: R$ 0.00';
+            const contador = document.getElementById('contador-carrinho');
+            if (contador) contador.textContent = '0';
         });
 }
 

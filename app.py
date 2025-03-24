@@ -143,34 +143,52 @@ def adicionar_ao_carrinho():
         print(f"Erro ao adicionar ao carrinho: {e}")
         return jsonify({'error': 'Erro ao adicionar ao carrinho'}), 500
     
+
 @app.route('/carrinho', methods=['GET'])
 def carrinho():
-    try:
-        user_id = session.get('user_id')
-        if not user_id:
-            return jsonify({'Por favor, efetue login'}), 401
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'message': 'Por favor, efetue login'}), 401
 
+    try:
         # Busca os itens do carrinho do usuário autenticado
         itens_no_carrinho = CartItem.query.filter_by(user_id=user_id).all()
 
+        # Calcula o total e prepara a lista de itens em JSON
+        itens_json = []
+        total_carrinho = sum(
+            float(item.product.price) * item.quantity
+            for item in itens_no_carrinho
+        )
+
         # Converte os itens para JSON
-        itens_json = [
-            {
+        for item in itens_no_carrinho:
+            preco_item = float(item.product.price)
+            subtotal_item = preco_item * item.quantity
+            itens_json.append({
                 'id': item.id,
                 'produto': {
                     'id': item.product.id,
                     'nome': item.product.name,
-                    'preco': float(item.product.price)  # Garante que seja um número serializável
+                    'preco': preco_item
                 },
-                'quantidade': item.quantity
-            }
-            for item in itens_no_carrinho
-        ]
+                'quantidade': item.quantity,
+                'subtotal': subtotal_item  # Opcional: incluir o subtotal de cada item
+            })
 
-        return jsonify(itens_json)
+        return jsonify({
+            'itens': itens_json,
+            'total': round(total_carrinho, 2)
+        })
 
     except Exception as e:
-        return jsonify({'error': 'Erro interno no servidor', 'details': str(e)}), 500
+        return jsonify({
+            'error': 'Erro interno no servidor',
+            'details': str(e)
+        }), 500
+
+
+
 
 
 @app.route('/remover_do_carrinho/<int:item_id>', methods=['DELETE'])
