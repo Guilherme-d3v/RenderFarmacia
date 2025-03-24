@@ -178,7 +178,7 @@
     </div>
     </div>
 
-<!-- Modal de Login (POSIÇÃO CORRIGIDA: antes do script) -->
+<!-- Modal de Login -->
 <div id="login-modal" style="display: none;">
     <div class="modal-content" data-state="login">
         <span id="close-login-modal-login">&times;</span>
@@ -202,12 +202,14 @@
     </div>
 </div>
 
+<!--Modal de registro-->
 <div id="register-modal" style="display: none;">
     <div class="modal-content">
         <span id="close-register-modal">&times;</span>
         <h2>Cadastro</h2>
+        <p>preencha sem espaços ou pontuação</p>
         <form id="register-form">
-            <input type="text" id="register-nome" name="nome" placeholder="Nome" required><br>
+            <input type="text" id="register-nome" name="nome" placeholder="Nome pode haver espaços" required><br>
             <input type="email" id="register-email" name="email" placeholder="Email" required><br>
             <input type="password" id="register-password" name="password" placeholder="Senha" required><br>
             <input type="birth" id="register-birth" name="birth" placeholder="Data Nascimento"required><br>
@@ -217,7 +219,7 @@
         </form>
     </div>
 </div>
-<!-- Modal de Recuperação de Senha -->
+
 <!-- Modal de Recuperação de Senha -->
 <div id="recovery-modal" style="display: none;">
 <div class="modal-content">
@@ -236,7 +238,7 @@
     </a>
 
 
-
+<!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
           <!-- Coluna 1: Links -->
