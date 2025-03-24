@@ -245,25 +245,50 @@ def obter_usuario():
 # Rota para resetar a senha usando o token
 @app.route('/reset-password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
-    user = User.find_by_reset_token(token)
-    if not user or user.is_reset_token_expired():
-        flash('O link de recuperação é inválido ou expirou.', 'danger')
-        return redirect(url_for('login'))
-
-    if request.method == 'POST':
-        new_password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
-        if new_password == confirm_password:
-            user.set_password(new_password)
+    if request.method == 'GET':
+        # Verifica se o token é válido
+        user = User.find_by_reset_token(token)
+        if not user or user.is_reset_token_expired():
+            flash('O link de recuperação é inválido ou expirou.', 'error')
+            return render_template('reset_password.html', token=token)
+        return render_template('reset_password.html', token=token)
+    
+    elif request.method == 'POST':
+        try:
+            data = request.get_json()
+            password = data.get('password')
+            confirm_password = data.get('confirm_password')
+            
+            # Validações
+            if not password or not confirm_password:
+                return jsonify({'error': 'Preencha todos os campos'}), 400
+            
+            if password != confirm_password:
+                return jsonify({'error': 'As senhas não coincidem'}), 400
+            
+            if len(password) < 8:
+                return jsonify({'error': 'A senha deve ter pelo menos 8 caracteres'}), 400
+            
+            user = User.find_by_reset_token(token)
+            if not user or user.is_reset_token_expired():
+                return jsonify({'error': 'Link inválido ou expirado'}), 400
+            
+            # Atualiza a senha
+            user.set_password(password)
             user.reset_token = None
             user.reset_token_expiry = None
             db.session.commit()
-            flash('Sua senha foi alterada com sucesso. Faça login com a nova senha.', 'success')
-            return redirect(url_for('login'))
-        else:
-            flash('As senhas não coincidem.', 'danger')
-        return render_template('reset_password.html', token=token) # Renderiza o template em caso de erro
-    return render_template('reset_password.html', token=token)
+            
+            return jsonify({
+                'message': 'Senha redefinida com sucesso! Você será redirecionado para a página de login.'
+            }), 200
+            
+        except Exception as e:
+            db.session.rollback()
+            print(f"Erro ao redefinir senha: {str(e)}")
+            return jsonify({
+                'error': 'Ocorreu um erro ao redefinir sua senha. Por favor, tente novamente.'
+            }), 500
 
 @app.route('/forgot-password', methods=['POST'])
 def forgot_password():
