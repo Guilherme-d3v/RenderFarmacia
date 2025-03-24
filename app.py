@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
+from flask_mail import Mail, Message
 
 # Inicialização do aplicativo Flask
 app = Flask(__name__)
@@ -266,6 +267,29 @@ def reset_password(token):
             flash('As senhas não coincidem.', 'danger')
         return render_template('reset_password.html', token=token) # Renderiza o template em caso de erro
     return render_template('reset_password.html', token=token)
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = User.query.filter_by(email=email).first()
+        if user:
+            reset_token = user.generate_reset_token()
+            reset_link = url_for('reset_password', token=reset_token, _external=True)
+            msg = Message("Recuperação de Senha", recipients=[email])
+            msg.body = f"Clique no link abaixo para redefinir sua senha:\n\n{reset_link}"
+            try:
+                mail.send(msg)
+                flash('Um link de recuperação de senha foi enviado para o seu e-mail.', 'info')
+                return redirect(url_for('login'))
+            except Exception as e:
+                print(f"Erro ao enviar e-mail: {e}")
+                flash('Houve um erro ao enviar o e-mail. Por favor, tente novamente mais tarde.', 'danger')
+                return render_template('forgot_password.html')
+        else:
+            flash('E-mail não encontrado.', 'danger')
+        return render_template('forgot_password.html')
+    return render_template('forgot_password.html')
 
 # Roda o aplicativo Flask em modo de debug, se este arquivo for executado diretamente
 if __name__ == '__main__':
