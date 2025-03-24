@@ -10,6 +10,17 @@ app = Flask(__name__)
 # Define a chave secreta do Flask, usada para sessões e criptografia; ela pode vir de uma variável de ambiente
 app.secret_key = os.environ.get("SECRET_KEY")
 
+# Configurações do servidor SMTP
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # ou o servidor de e-mail que você está usando
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'guii.parada@gmail.com'  # seu e-mail
+app.config['MAIL_PASSWORD'] = 'phae zigu odbw fcch'  # sua senha ou app password
+
+# Inicializando o Flask-Mail
+mail = Mail(app)
+
 # Configuração do banco de dados usando a variável de ambiente DATABASE_URL
 SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
