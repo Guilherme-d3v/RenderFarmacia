@@ -1,0 +1,51 @@
+# Pontos para a Reunião
+
+## Informação
+
+- **Aval formato banco de dados de produtos:**  
+  (ID, nome, preço, descrição, composição, categoria, chave, imagem).
+
+- **Aval formato endereço para entregas:**  
+  (Logradouro, número, complemento, CEP, ponto de referência, contato de entrega, referência ao usuário {relação com banco de usuários}).
+
+- **Plataforma de pagamento:**  
+  Exemplo: Mercado Pago, Paypal, PagSeguro.
+
+- **Lista de produtos:**  
+  Produtos unitários, kits.
+
+- **Textos para substituição de temporários.**
+
+- **Material (artes,textos ou materias) para incorporação e enriquecimento da página principal.**
+
+- **Redes sociais:**  
+  Facebook, Twitter, Instagram, WhatsApp.
+
+- **Aval formato rodapé:**  
+  (Implementos ou remoções, conteúdo correspondente para cada elemento).
+
+## Artes
+
+- **Banners principais para o carrossel da primeira página.**
+- **Imagens para uso nos produtos e kits.**
+- **Logotipo da empresa.**
+
+## Desenvolvedor
+
+- **Carrinho:**  
+  - Adicionar link de conclusão e direcionamento para plataforma de pagamento.  
+  - Adicionar linha de soma de itens.
+
+- **Login:**  
+  - Adicionar link de recuperação de senha.
+
+- **Elaboração da página "Área do cliente".**
+
+- **Após avaliação, modificações em bancos de dados.**
+
+- **Após definição do modelo de produtos:**  
+  - Criação e testes de página de produtos.  
+  - O mesmo para kits (linhas completas).
+
+- **Após avaliação ou alteração de formato da coluna key em produtos:**  
+  - Criação de página de indicação por sintomas.
