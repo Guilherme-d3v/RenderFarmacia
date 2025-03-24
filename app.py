@@ -265,28 +265,56 @@ def reset_password(token):
         return render_template('reset_password.html', token=token) # Renderiza o template em caso de erro
     return render_template('reset_password.html', token=token)
 
-@app.route('/forgot-password', methods=['GET', 'POST'])
+@app.route('/forgot-password', methods=['POST'])
 def forgot_password():
-    if request.method == 'POST':
-        email = request.form.get('email')
+    try:
+        data = request.get_json()  # Agora recebemos JSON em vez de form-data
+        email = data.get('email')
+        
+        if not email:
+            return jsonify({'error': 'E-mail é obrigatório'}), 400
+
         user = User.query.filter_by(email=email).first()
-        if user:
-            reset_token = user.generate_reset_token()
-            reset_link = url_for('reset_password', token=reset_token, _external=True)
-            msg = Message("Recuperação de Senha", recipients=[email])
-            msg.body = f"Clique no link abaixo para redefinir sua senha:\n\n{reset_link}"
-            try:
-                mail.send(msg)
-                flash('Um link de recuperação de senha foi enviado para o seu e-mail.', 'info')
-                return redirect(url_for('login'))
-            except Exception as e:
-                print(f"Erro ao enviar e-mail: {e}")
-                flash('Houve um erro ao enviar o e-mail. Por favor, tente novamente mais tarde.', 'danger')
-                return render_template('forgot_password.html')
-        else:
-            flash('E-mail não encontrado.', 'danger')
-        return render_template('forgot_password.html')
-    return render_template('forgot_password.html')
+        if not user:
+            # Por segurança, não revelamos se o e-mail existe ou não
+            return jsonify({
+                'message': 'Se o e-mail estiver cadastrado, um link de recuperação será enviado'
+            }), 200
+
+        # Gera o token de reset
+        reset_token = user.generate_reset_token()
+        reset_link = url_for('reset_password', token=reset_token, _external=True)
+        
+        # Configura o e-mail
+        msg = Message(
+            "Recuperação de Senha - Botica Suplementos",
+            recipients=[email]
+        )
+        msg.body = f"""Olá,
+
+Você solicitou a redefinição de sua senha. Clique no link abaixo para criar uma nova senha:
+
+{reset_link}
+
+Este link expirará em 24 horas.
+
+Se você não solicitou esta alteração, por favor ignore este e-mail.
+
+Atenciosamente,
+Equipe Botica Suplementos"""
+        
+        # Envia o e-mail
+        mail.send(msg)
+        
+        return jsonify({
+            'message': 'Se o e-mail estiver cadastrado, um link de recuperação será enviado'
+        }), 200
+
+    except Exception as e:
+        print(f"Erro no forgot-password: {str(e)}")
+        return jsonify({
+            'error': 'Ocorreu um erro ao processar sua solicitação'
+        }), 500
 
 # Roda o aplicativo Flask em modo de debug, se este arquivo for executado diretamente
 if __name__ == '__main__':

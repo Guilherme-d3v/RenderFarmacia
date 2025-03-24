@@ -358,17 +358,45 @@ document.getElementById('back-to-login')?.addEventListener('click', function() {
 });
 
 // Envio do formulário de recuperação
-document.getElementById('recovery-form')?.addEventListener('submit', function(e) {
+document.getElementById('recovery-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     const email = document.getElementById('recovery-email').value;
+    const submitBtn = e.target.querySelector('button[type="submit"]');
     
-    // Aqui você pode adicionar a lógica para enviar o email de recuperação
-    console.log('Email de recuperação enviado para:', email);
+    // Validação básica
+    if (!email || !email.includes('@')) {
+        alert('Por favor, insira um e-mail válido');
+        return;
+    }
     
-    // Mostrar mensagem de sucesso e voltar para o login
-    alert('Um link de recuperação foi enviado para seu email!');
-    closeRecoveryModal();
-    document.getElementById('login-modal').style.display = 'flex';
+    // Feedback visual
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    
+    try {
+        const response = await fetch('/forgot-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message);
+            closeRecoveryModal();
+        } else {
+            alert(data.error || 'Erro ao processar solicitação');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao conectar com o servidor');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Link de Recuperação';
+    }
 });
 
 // Fechar modal ao clicar fora
