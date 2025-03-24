@@ -228,22 +228,6 @@ def obter_usuario():
         return jsonify({'nome': user.nome})
     return jsonify({'error': 'Não logado'}), 401
 
-@app.route('/forgot-password', methods=['GET', 'POST'])
-def forgot_password():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        user = User.query.filter_by(email=email).first()
-        if user:
-            reset_token = user.generate_reset_token()
-            # Simulação de envio de e-mail (para teste, substituir por envio real)
-            reset_link = url_for('reset_password', token=reset_token, _external=True)
-            print(f"Link de recuperação (para teste): {reset_link}")
-            flash('Um link de recuperação de senha foi gerado (verifique o console para teste).', 'info')
-            return redirect(url_for('login'))
-        else:
-            flash('E-mail não encontrado.', 'danger')
-        return render_template('forgot_password.html') # Renderiza o template mesmo se o e-mail não for encontrado
-    return render_template('forgot_password.html')
 
 # Rota para resetar a senha usando o token
 @app.route('/reset-password/<token>', methods=['GET', 'POST'])
