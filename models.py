@@ -1,5 +1,7 @@
 from app import db  # Importa a instância 'db' do arquivo app.py
 from flask_bcrypt import Bcrypt
+from datetime import datetime, timedelta
+import secrets
 
 bcrypt = Bcrypt()
 
@@ -12,6 +14,9 @@ class User(db.Model):
     birth = db.Column(db.String(10), nullable=False) # Assumindo formato DD/MM/AAAA
     cpf = db.Column(db.String(14), unique=True, nullable=False) # Assumindo formato XXX.XXX.XXX-XX
     telefone = db.Column(db.String(15), nullable=False) # Assumindo formato (XX) XXXXX-XXXX
+    # Campos para recuperação de senha
+    reset_token = db.Column(db.String(100), unique=True, nullable=True)
+    reset_token_expiry = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
         return f"User('{self.email}')"
@@ -22,6 +27,20 @@ class User(db.Model):
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
 
+    # Métodos para recuperação de senha (adicione estas funções dentro da classe User)
+    def generate_reset_token(self):
+        self.reset_token = secrets.token_urlsafe(50)
+        self.reset_token_expiry = datetime.utcnow() + timedelta(hours=1) # Token expira em 1 hora
+        db.session.commit()
+        return self.reset_token
+
+    def is_reset_token_expired(self):
+        return self.reset_token_expiry is None or self.reset_token_expiry < datetime.utcnow()
+
+    @staticmethod
+    def find_by_reset_token(token):
+        return User.query.filter_by(reset_token=token).first()
+    
 class CartItem(db.Model):
     __tablename__ = 'cart_items'
     id = db.Column(db.Integer, primary_key=True)
